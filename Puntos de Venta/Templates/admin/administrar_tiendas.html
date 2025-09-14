@@ -1,0 +1,271 @@
+{% include 'admin/cabecera_usuario.html' %}
+{% block content %}
+<style>
+    .favorito-corazon {
+    transition: color 0.4s, transform 0.3s;
+    color: #bab78c;
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 2;
+}
+.favorito-corazon.favorito {
+    color: #be8c6b;
+    animation: popFavorito 0.5s cubic-bezier(.4,0,.2,1);
+}
+.favorito-corazon:not(.favorito) {
+    color: #bab78c;
+    animation: popNoFavorito 0.5s cubic-bezier(.4,0,.2,1);
+}
+@keyframes popFavorito {
+    0% { transform: scale(1); color: #bab78c; }
+    60% { transform: scale(1.4); color: #be8c6b; }
+    100% { transform: scale(1); color: #be8c6b; }
+}
+@keyframes popNoFavorito {
+    0% { transform: scale(1); color: #be8c6b; }
+    60% { transform: scale(1.4); color: #bab78c; }
+    100% { transform: scale(1); color: #bab78c; }
+}
+    body {
+        background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    }
+    .market-header {
+        background: linear-gradient(90deg, #fffbe6 60%, #ffb86c 100%);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 32px 0 #be8c6b44, 0 0 0 4px #ff910033;
+        padding: 2.2rem 1.2rem 1.2rem 1.2rem;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        animation: fadeInDown 1s cubic-bezier(.4,2,.6,1) both;
+    }
+    .market-header::before {
+        content: '';
+        position: absolute;
+        left: -60px; top: -60px;
+        width: 180px; height: 180px;
+        background: radial-gradient(circle, #ff9100cc 0%, #fff0 80%);
+        z-index: 0;
+        filter: blur(8px);
+        animation: floatGlow 4s infinite alternate;
+    }
+    @keyframes floatGlow {
+        0% { left: -60px; top: -60px; }
+        100% { left: 20px; top: -30px; }
+    }
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-40px); }
+        100% { opacity: 1; transform: none; }
+    }
+    .market-header .btn-create {
+        position: absolute;
+        right: 2.5rem;
+        top: 2.2rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb86c 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 0 12px 2px #ffb86c99, 0 0 0 2px #fffbe6;
+        padding: 0.7rem 2.2rem;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        z-index: 2;
+    }
+    .market-header .btn-create:hover {
+        background: #ff9100;
+        color: #fff;
+        box-shadow: 0 0 24px 4px #ff9100, 0 0 0 2px #fffbe6;
+        transform: scale(1.06) translateY(-2px);
+    }
+    .store-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.2rem;
+        justify-content: center;
+        animation: fadeIn 1.2s cubic-bezier(.4,2,.6,1) 0.2s both;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: scale(.98); }
+        100% { opacity: 1; transform: none; }
+    }
+    .store-card {
+        background: #fff;
+        border-radius: 1.2rem;
+        box-shadow: 0 0 18px 2px #ffb86c55, 0 0 0 2px #ff910022;
+        border: 2px solid #be8c6b;
+        width: 320px;
+        padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: box-shadow 0.2s, border 0.2s, transform 0.18s;
+        position: relative;
+        overflow: hidden;
+        animation: cardPop 0.7s cubic-bezier(.4,2,.6,1) both;
+    }
+    .store-card:hover {
+        box-shadow: 0 0 32px 8px #ffb86c, 0 2px 32px 0 #be8c6b, 0 0 0 4px #ff910055;
+        border-color: #ffb86c;
+        transform: translateY(-6px) scale(1.03);
+    }
+    @keyframes cardPop {
+        0% { opacity: 0; transform: scale(.95) translateY(30px); }
+        100% { opacity: 1; transform: none; }
+    }
+    .store-card img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 0 12px 2px #ff910055;
+        border: 2.5px solid #fffbe6;
+        transition: box-shadow 0.2s, border 0.2s;
+    }
+    .store-card:hover img {
+        box-shadow: 0 0 24px 4px #ff9100cc;
+        border-color: #ffb86c;
+    }
+    .store-card .store-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #ff9100;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 8px #ffb86c33;
+    }
+    .store-card .store-owner {
+        font-size: 1rem;
+        color: #be8c6b;
+        margin-bottom: 0.7rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .store-card .product-preview {
+        display: flex;
+        gap: 0.7rem;
+        margin-bottom: 0.7rem;
+    }
+    .store-card .product-preview img {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1.5px solid #bab78c;
+        box-shadow: 0 0 8px 1px #ffb86c33;
+        transition: box-shadow 0.2s, border 0.2s;
+    }
+    .store-card .product-preview img:hover {
+        border-color: #ff9100;
+        box-shadow: 0 0 16px 2px #ff9100aa;
+        transform: scale(1.08);
+    }
+    .store-card .btn-visit {
+        background: linear-gradient(90deg, #ff9100 60%, #ffb86c 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        padding: 0.5rem 1.5rem;
+        margin-top: 0.5rem;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+        box-shadow: 0 0 8px 2px #ffb86c99;
+        letter-spacing: 0.5px;
+        font-size: 1.08rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .store-card .btn-visit:hover {
+        background: #ff9100;
+        color: #fff;
+        box-shadow: 0 0 16px 4px #ff9100;
+        transform: scale(1.06) translateY(-2px);
+    }
+    .store-card .badge-tech {
+        position: absolute;
+        top: 1.1rem;
+        right: 1.1rem;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb86c 100%);
+        color: #fff;
+        font-size: 0.92rem;
+        font-weight: bold;
+        border-radius: 1rem;
+        padding: 0.3rem 1rem;
+        box-shadow: 0 0 8px 2px #ffb86c55;
+        letter-spacing: 0.5px;
+        animation: badgePop 1.2s cubic-bezier(.4,2,.6,1) both;
+    }
+    @keyframes badgePop {
+        0% { opacity: 0; transform: scale(.7); }
+        100% { opacity: 1; transform: none; }
+    }
+    .store-card .admin-buttons {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    .store-card .admin-buttons a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 6px;
+        transition: transform 0.2s;
+    }
+    .store-card .admin-buttons .btn-edit {
+        background-color: #2196f3;
+    }
+    .store-card .admin-buttons .btn-delete {
+        background-color: #f44336;
+    }
+    @media (max-width: 900px) {
+        .store-list { flex-direction: column; align-items: center; }
+        .market-header .btn-create { position: static; margin-top: 1.2rem; }
+    }
+</style>
+<div class="container py-4">
+    <div class="market-header">
+        <h1 class="mb-2"><i class="fas fa-store"></i> Administrar Mis Tiendas</h1>
+        <p class="lead">Edita, elimina y gestiona tus tiendas y productos.</p>
+        <a href="{{ url_for('registro_tienda') }}" class="btn btn-create"><i class="fas fa-plus"></i> Crear nueva tienda</a>
+    </div>
+    {% if tiendas_emprendedor %}
+        <div class="store-list">
+            {% for tienda in tiendas_emprendedor %}
+            <div class="store-card">
+                <span class="badge-tech"><i class="fas fa-bolt"></i> Mi Tienda</span>
+                <img src="{{ tienda.logo if tienda.logo else '/imagenes/logo.png' }}" alt="Logo de {{ tienda.nombre_tienda or 'Tienda' }}" onerror="this.onerror=null;this.src='/imagenes/logo.png';">
+                <div class="store-title">{{ tienda.nombre_tienda }}</div>
+                <div class="store-owner"><i class="fas fa-user"></i> {{ tienda.nombre_dueño }}</div>
+                <div class="product-preview">
+                    <img src="{{ tienda.imagen1 }}" alt="Producto 1">
+                    <img src="{{ tienda.imagen2 }}" alt="Producto 2">
+                </div>
+                <a href="{{ url_for('ver_productos_tienda', tienda_id=tienda.id) }}" class="btn btn-visit"><i class="fas fa-arrow-right"></i> Administrar tienda</a>
+                <div class="admin-buttons">
+                    <a href="{{ url_for('editar_tienda', tienda_id=tienda.id) }}" class="btn-edit"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="#" onclick="if(confirm('¿Estás seguro que deseas eliminar la tienda {{ tienda.nombre_tienda }}?')) { document.getElementById('formEliminarTienda{{ tienda.id }}').submit(); } return false;" class="btn-delete"><i class="fas fa-trash"></i> Eliminar</a>
+                    <form id="formEliminarTienda{{ tienda.id }}" action="{{ url_for('eliminar_tienda', tienda_id=tienda.id) }}" method="POST" style="display:none;"></form>
+                </div>
+                <span class="favorito-corazon{% if tienda.favorito %} favorito{% endif %}" onclick="toggleFavorito('{{ tienda.id }}', 'tienda', this)">
+                    <i class="fas fa-heart"></i>
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center w-100 py-5">
+            <h4 class="text-muted">No tienes tiendas registradas. ¡Crea una ahora!</h4>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

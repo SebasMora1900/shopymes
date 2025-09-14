@@ -1,0 +1,114 @@
+{% include 'sitio/cabecera.html' %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-5 shadow">
+            <div class="card-header text-center bg-primary text-white">
+                <h2>Registro como {% if rol == 'emprendedor' %}Emprendedor{% else %}Cliente{% endif %}</h2>
+            </div>
+            <div class="card-body">
+                <!-- Muestra los mensajes flash de Flask si existen -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-info" role="alert">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+
+                <!-- Formulario de registro -->
+                <form action="{{ url_for('registro', rol=rol) }}" method="post">
+                    <!-- Campo oculto para el rol -->
+                    <input type="hidden" name="rol" value="{{ rol }}">
+                    
+                    <!-- Campos para clientes y emprendedores -->
+                    {% if rol == 'cliente' %}
+                        <div class="mb-3">
+                            <label for="txtNombre" class="form-label">Nombre completo:</label>
+                            <input type="text" class="form-control" name="txtNombre" id="txtNombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Correo electrónico:</label>
+                            <input type="email" class="form-control" name="txtEmail" id="txtEmail" placeholder="ejemplo@correo.com" required>
+                        </div>
+                    {% elif rol == 'emprendedor' %}
+                        
+                        <div class="mb-3">
+                            <label for="txtNombreEmpresa" class="form-label">Nombre de la Empresa:</label>
+                            <input type="text" class="form-control" name="txtNombreEmpresa" id="txtNombreEmpresa" placeholder="Nombre de tu empresa" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtSector" class="form-label">Sector:</label>
+                            <input type="text" class="form-control" name="txtSector" id="txtSector" placeholder="Ej: Tecnología, Alimentación, etc." required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Correo electrónico de la Empresa:</label>
+                            <input type="email" class="form-control" name="txtEmail" id="txtEmail" placeholder="ejemplo@correo.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtCedulaJuridica" class="form-label">Cédula Judicial:</label>
+                            <input type="text" class="form-control" name="txtCedulaJuridica" id="txtCedulaJuridica" placeholder="Ej: 3-101-123456" required>
+                        </div>
+                    {% endif %}
+
+                    <!-- Campo de contraseña con el botón para mostrar/ocultar -->
+                    <div class="mb-3">
+                        <label for="txtContrasena" class="form-label">Contraseña:</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="txtContrasena" id="txtContrasena" placeholder="********" required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Nuevo campo para repetir la contraseña -->
+                    <div class="mb-3">
+                        <label for="txtRepetirContrasena" class="form-label">Repetir Contraseña:</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="txtRepetirContrasena" id="txtRepetirContrasena" placeholder="********" required>
+                            <button class="btn btn-outline-secondary" type="button" id="toggleRepeatPassword">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                ¿Ya tienes una cuenta? <a href="{{ url_for('login') }}">Inicia sesión aquí</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'sitio/pie.html' %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Función para alternar la visibilidad de la contraseña
+        function togglePasswordVisibility(toggleButtonId, passwordInputId) {
+            const toggleButton = document.getElementById(toggleButtonId);
+            const passwordInput = document.getElementById(passwordInputId);
+
+            if (toggleButton && passwordInput) {
+                toggleButton.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Cambia el icono del ojo
+                    this.querySelector('i').classList.toggle('fa-eye');
+                    this.querySelector('i').classList.toggle('fa-eye-slash');
+                });
+            }
+        }
+
+        // Aplica la funcionalidad a ambos campos de contraseña
+        togglePasswordVisibility('togglePassword', 'txtContrasena');
+        togglePasswordVisibility('toggleRepeatPassword', 'txtRepetirContrasena');
+    });
+</script>

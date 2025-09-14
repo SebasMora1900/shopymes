@@ -1,0 +1,29 @@
+{% extends 'admin/cabecera_usuario.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4"><i class="fas fa-credit-card"></i> Confirmar compra</h2>
+    {% if carrito and carrito|length > 0 %}
+        <div class="alert alert-info">Revisa tu pedido antes de confirmar la compra.</div>
+        <ul class="list-group mb-4">
+            {% for item in carrito %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    <strong>{{ item.producto.nombre }}</strong> <br>
+                    <small class="text-muted">Tienda: {{ item.tienda.nombre_tienda }}</small>
+                    <br>Cantidad: {{ item.cantidad }}
+                </span>
+                <span class="badge bg-success">{{ item.subtotal }} €</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="text-end">
+            <h4 class="mb-3">Total: <span class="text-success">{{ total }} €</span></h4>
+            <button class="btn btn-success btn-lg" disabled>Confirmar compra (demo)</button>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            Tu carrito está vacío.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

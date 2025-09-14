@@ -1,0 +1,162 @@
+{% include 'admin/cabecera_usuario.html' %}
+<style>
+    body {
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(135deg, #1e2a4a 0%, #10141a 100%);
+        color: #fff;
+    }
+    .registro-tienda-form {
+        background: rgba(171, 169, 87);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px 0 rgba(130, 128, 49);
+        padding: 2.5rem 2rem 2rem 2rem;
+        max-width: 480px;
+        width: 100%;
+        margin: 2.5rem auto 2.5rem auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadeInDown 0.8s cubic-bezier(.4,2,.6,1) both;
+    }
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-40px); }
+        100% { opacity: 1; transform: none; }
+    }
+    .registro-tienda-form h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+    }
+    label {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+    }
+    input[type="text"],
+    input[type="file"],
+    textarea {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        font-size: 1rem;
+        margin-top: 0.2rem;
+        transition: box-shadow 0.2s, background 0.2s;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+        outline: none;
+        background: rgba(255,255,255,0.13);
+        box-shadow: 0 0 0 2px #547228;
+    }
+    textarea {
+        min-height: 80px;
+        resize: vertical;
+    }
+    .imagenes-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+    .btn-crear-tienda {
+        margin-top: 1.2rem;
+        padding: 0.9rem 0;
+        background: linear-gradient(90deg, #828031 60%, #8d8b43 100%);
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 2px 8px 0 rgba(255,152,0,0.18);
+        transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-crear-tienda:hover {
+        background: linear-gradient(90deg, #868522 0%, #94923c 100%);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 4px 16px 0 rgba(255,152,0,0.28);
+    }
+    @media (max-width: 600px) {
+        .registro-tienda-form {
+            padding: 1.2rem 0.5rem;
+            max-width: 98vw;
+        }
+        .registro-tienda-form h1 {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+<div class="registro-tienda-form">
+        <h1>¡Crea tu tienda en ShopYmes!</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div style="width:100%;margin-bottom:1rem;">
+                    {% for category, message in messages %}
+                        <div style="background:#58831ccc;padding:0.7rem 1rem;border-radius:8px;margin-bottom:0.5rem;color:#fff;font-weight:bold;text-align:center;">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('registro_tienda') }}" method="POST" enctype="multipart/form-data" id="form-tienda">
+        <div>
+            <label for="nombre_tienda">Nombre de la Tienda</label>
+            <input type="text" id="nombre_tienda" name="nombre_tienda" required>
+        </div>
+        <div>
+            <label for="nombre_dueño">Nombre del dueño</label>
+            <input type="text" id="nombre_dueño" name="nombre_dueño" required>
+        </div>
+        <div>
+            <label for="categoria_id">Categoría</label>
+            <select id="categoria_id" name="categoria_id" required style="width:100%;padding:0.7rem 1rem;border-radius:8px;background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;max-height:120px;overflow-y:auto;">
+                <option value="">Selecciona una categoría</option>
+                <option value="1">Comestibles</option>
+                <option value="2">Salud y belleza</option>
+                <option value="3">Servicios</option>
+                <option value="4">Bisutería</option>
+                <option value="5">Ebanistería</option>
+                <option value="6">Entretenimientos</option>
+            </select>
+        </div>
+        <div>
+            <label for="contactos">Contactos</label>
+            <input type="text" id="contactos" name="contactos" placeholder="Teléfono, correo, redes sociales..." required>
+        </div>
+        <div>
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" placeholder="Describe tu tienda y productos..." required></textarea>
+        </div>
+        <div class="imagenes-inputs">
+            <label for="logo">Logo de la tienda</label>
+            <input type="file" id="logo" name="logo" accept="image/*" required>
+            <label for="imagen1">Imagen de producto/tienda 1</label>
+            <input type="file" id="imagen1" name="imagen1" accept="image/*" required>
+            <label for="imagen2">Imagen de producto/tienda 2</label>
+            <input type="file" id="imagen2" name="imagen2" accept="image/*" required>
+        </div>
+        
+    <button class="btn-crear-tienda" type="submit" id="btn-crear-tienda" style="background-color: #58831ccc;">Crear Tienda</button>
+    </form>
+</div>
+{% include 'admin/pie.html' %}
+
+<script>
+// Feedback visual al enviar el formulario
+document.getElementById('form-tienda').addEventListener('submit', function(e) {
+    var btn = document.getElementById('btn-crear-tienda');
+    btn.disabled = true;
+    btn.textContent = 'Creando...';
+});
+</script>

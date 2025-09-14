@@ -1,0 +1,17 @@
+{% include 'sitio/cabecera.html' %}
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+        <div class="card mt-5 shadow" style="background-color: #232323; color: #fff; border: 1px solid #444;">
+            <div class="card-body">
+                <h2 class="card-title mb-4" style="color: #ffb86c;">¡Gracias por registrarte en ShopYmes! 🎉</h2>
+                <p style="font-size: 1.1rem; color: #ccc;">Hemos recibido tu solicitud.</p>
+                <p style="font-size: 1.1rem; color: #ccc;">Nuestro equipo verificará tu información en las próximas 24 horas.</p>
+                <p style="font-size: 1.1rem; color: #ccc;">Te notificaremos por correo electrónico si tu empresa fue aprobada o si necesitamos información adicional.</p>
+            </div>
+            <div class="card-footer" style="border-top: 1px solid #444;">
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Ir a Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'sitio/pie.html' %}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda registrada con éxito</title>
+    <meta http-equiv="refresh" content="2;url=/admin/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e2a4a 0%, #10141a 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .exito-container {
+            background: rgba(30, 42, 74, 0.92);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 420px;
+            width: 100%;
+            margin: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .exito-container h1 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .exito-container p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .btn-volver {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(90deg, #ff9800 60%, #ffb347 100%);
+            color: #fff;
+            font-size: 1.08rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px 0 rgba(255,152,0,0.18);
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-volver:hover {
+            background: linear-gradient(90deg, #ffb347 0%, #ff9800 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 16px 0 rgba(255,152,0,0.28);
+        }
+    </style>
+</head>
+<body>
+    <div class="exito-container">
+    <h1>¡Tienda registrada con éxito!</h1>
+    <p>Tu tienda ha sido creada y registrada correctamente en ShopYmes.<br>
+    Serás redirigido al panel de administración en unos segundos...</p>
+    <a href="/admin/" class="btn-volver">Ir al panel ahora</a>
+    </div>
+</body>
+</html>

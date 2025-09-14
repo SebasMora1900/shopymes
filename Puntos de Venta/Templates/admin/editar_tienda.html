@@ -1,0 +1,179 @@
+{% include 'admin/cabecera_usuario.html' %}
+{% block content %}
+<style>
+    /* Estilos mejorados para un diseño más moderno y ligero */
+    .form-container {
+        background: linear-gradient(145deg, #f8f6f2 0%, #ecdfcd 100%);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(145, 107, 94, 0.1), 0 0 0 2px rgba(190, 140, 107, 0.1);
+        padding: 40px;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+        color: #604a33;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .form-group label {
+        color: #8e6c49;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: block;
+        transition: color 0.3s ease;
+    }
+    .form-control, .form-control-file {
+        border-radius: 12px;
+        border: 1px solid #a4927a;
+        padding: 12px 18px;
+        font-size: 1rem;
+        background-color: #fcfaf8;
+        color: #604a33;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        width: 100%; /* Asegura que ocupen todo el ancho disponible */
+    }
+    .form-control:focus {
+        border-color: #be8c6b;
+        box-shadow: 0 0 0 3px rgba(190, 140, 107, 0.2);
+        transform: translateY(-2px);
+    }
+    .form-group:focus-within label {
+        color: #be8c6b;
+    }
+    .img-fluid {
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 15px; /* Espacio debajo de la imagen */
+    }
+    .img-fluid:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    .btn {
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .btn-primary {
+        background-color: #be8c6b;
+        border: none;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(190, 140, 107, 0.3);
+    }
+    .btn-primary:hover {
+        background-color: #916b5e;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(145, 107, 94, 0.4);
+    }
+    .btn-secondary {
+        background-color: #a4927a;
+        border: none;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(164, 146, 122, 0.3);
+    }
+    .btn-secondary:hover {
+        background-color: #879281;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(135, 146, 129, 0.4);
+    }
+    /* Estilos para el input de tipo file para que se vea como un botón */
+    .custom-file-input {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+    .custom-file-label {
+        background-color: #a4927a;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .custom-file-label:hover {
+        background-color: #8e6c49;
+    }
+    .file-input-wrapper {
+        display: flex;
+        flex-direction: column; /* Organiza los elementos en columna */
+        align-items: center; /* Centra los elementos horizontalmente */
+    }
+    .file-input-wrapper .form-text {
+        text-align: center; /* Centra el texto de ayuda */
+    }
+</style>
+<div class="container mt-4">
+    <div class="form-container">
+        <h2><i class="fas fa-edit"></i> Editar Tienda</h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group mb-4">
+                <label>Nombre de la tienda</label>
+                <input type="text" name="nombre_tienda" class="form-control" required value="{{ tienda.nombre_tienda }}">
+            </div>
+            <div class="form-group mb-4">
+                <label>Descripción</label>
+                <textarea name="descripcion" class="form-control" required>{{ tienda.descripcion }}</textarea>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-6 d-flex flex-column align-items-center">
+                    <div class="form-group text-center">
+                        <label>Imagen 1 actual</label>
+                        <img src="{{ tienda.imagen1 }}" class="img-fluid mb-2" style="max-height: 200px; object-fit: cover;">
+                        
+                        <div class="file-input-wrapper">
+                            <label for="imagen1_input" class="custom-file-label">Seleccionar archivo</label>
+                            <input type="file" name="imagen1" id="imagen1_input" class="custom-file-input" accept="image/*">
+                            <small class="form-text text-muted">Deja en blanco para mantener la imagen actual</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column align-items-center">
+                    <div class="form-group text-center">
+                        <label>Imagen 2 actual</label>
+                        <img src="{{ tienda.imagen2 }}" class="img-fluid mb-2" style="max-height: 200px; object-fit: cover;">
+                        
+                        <div class="file-input-wrapper">
+                            <label for="imagen2_input" class="custom-file-label">Seleccionar archivo</label>
+                            <input type="file" name="imagen2" id="imagen2_input" class="custom-file-input" accept="image/*">
+                            <small class="form-text text-muted">Deja en blanco para mantener la imagen actual</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <a href="{{ url_for('ver_productos_tienda', tienda_id=tienda.id) }}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Script para mostrar el nombre del archivo seleccionado en el label
+    document.getElementById('imagen1_input').addEventListener('change', function(e) {
+        var fileName = e.target.files[0] ? e.target.files[0].name : 'Seleccionar archivo';
+        var label = e.target.nextElementSibling;
+        label.innerText = fileName;
+    });
+
+    document.getElementById('imagen2_input').addEventListener('change', function(e) {
+        var fileName = e.target.files[0] ? e.target.files[0].name : 'Seleccionar archivo';
+        var label = e.target.nextElementSibling;
+        label.innerText = fileName;
+    });
+</script>
+
+{% endblock %}
+{% include 'admin/pie.html' %}

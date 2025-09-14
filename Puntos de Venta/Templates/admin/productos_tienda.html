@@ -1,0 +1,53 @@
+{% include'admin/cabecera_usuario.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Productos de {{ tienda.nombre_tienda }}</h2>
+    
+    {% if es_dueño %}
+    <div class="mb-4">
+            <a href="{{ url_for('agregar_producto_tienda', tienda_id=tienda.id) }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Agregar Nuevo Producto
+            </a>
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ producto.imagen1 }}" class="card-img-top" alt="Imagen 1" style="height:180px;object-fit:cover;">
+                <img src="{{ producto.imagen2 }}" class="card-img-top" alt="Imagen 2" style="height:180px;object-fit:cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <p class="card-text"><b>Precio:</b> ${{ producto.precio }} / {{ producto.unidad }}</p>
+                    
+                    {% if es_dueño %}
+                    <div class="mt-3">
+                        <a href="{{ url_for('editar_producto', producto_id=producto.id) }}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{{ url_for('eliminar_producto', producto_id=producto.id) }}" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                    {% else %}
+                    <form method="POST" action="{{ url_for('agregar_al_carrito', producto_id=producto.id, tienda_id=tienda.id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-cart-plus"></i> Añadir al carrito</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p>No hay productos registrados en esta tienda.</p>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('admin_inicio') }}" class="btn btn-secondary mt-3">Volver</a>
+</div>
+{% endblock %}
+{% include 'admin/pie.html' %}

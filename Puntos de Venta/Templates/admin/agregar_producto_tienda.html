@@ -1,0 +1,38 @@
+{% include 'admin/cabecera_usuario.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Agregar producto a {{ tienda.nombre_tienda }}</h2>
+    {% if mensaje %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del producto</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
+        </div>
+        <div class="mb-3">
+            <label for="unidad" class="form-label">Unidad</label>
+            <input type="text" class="form-control" id="unidad" name="unidad" required>
+        </div>
+        <div class="mb-3">
+            <label for="imagen1" class="form-label">Imagen 1</label>
+            <input type="file" class="form-control" id="imagen1" name="imagen1" required>
+        </div>
+        <div class="mb-3">
+            <label for="imagen2" class="form-label">Imagen 2</label>
+            <input type="file" class="form-control" id="imagen2" name="imagen2" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        <a href="{{ url_for('ver_productos_tienda', tienda_id=tienda.id) }}" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
+{% endblock %}
+{% include 'admin/pie.html' %}

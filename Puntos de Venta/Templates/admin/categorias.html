@@ -1,0 +1,607 @@
+{% include 'admin/cabecera_usuario.html' %}
+<section class="shopymes-hero">
+    <div class="shopymes-hero-bg"></div>
+    <div class="shopymes-hero-content">
+        <h1 class="shopymes-hero-title">Catálogo de Tiendas y Productos</h1>
+        <div class="shopymes-hero-desc">Descubre negocios locales, productos únicos y servicios destacados. ShopYmes conecta emprendedores con clientes en una plataforma moderna y segura.</div>
+        <div class="shopymes-hero-stats">
+            <div class="shopymes-stat-card">
+                <div class="shopymes-stat-main">120+</div>
+                <div class="shopymes-stat-label">Tiendas Registradas</div>
+                <div class="shopymes-stat-sub">Emprendedores activos</div>
+            </div>
+            <div class="shopymes-stat-card">
+                <div class="shopymes-stat-main">800+</div>
+                <div class="shopymes-stat-label">Productos Publicados</div>
+                <div class="shopymes-stat-sub">Variedad y calidad</div>
+            </div>
+            <div class="shopymes-stat-card">
+                <div class="shopymes-stat-main">4.9/5</div>
+                <div class="shopymes-stat-label">Calificación Promedio</div>
+                <div class="shopymes-stat-sub">Clientes satisfechos</div>
+            </div>
+            <div class="shopymes-stat-card">
+                <div class="shopymes-stat-main">5K+</div>
+                <div class="shopymes-stat-label">Usuarios Activos</div>
+                <div class="shopymes-stat-sub">Comprando y vendiendo</div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+.shopymes-hero {
+    position: relative;
+
+    padding: 64px 0 0 0;
+    margin-bottom: 0;
+    min-height: 420px;
+    overflow: hidden;
+}
+.shopymes-hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 70% 20%, var(--shopy-accent-orange) 0%, var(--shopy-bg-light) 60%, #ffe0b2 100%);
+    opacity: 0.18;
+    z-index: 0;
+}
+.shopymes-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    text-align: left;
+}
+.shopymes-hero-title {
+    font-size: 3rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: #be8c6b;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+}
+.shopymes-hero-desc {
+    font-size: 1.25rem;
+    color: #3a3533;
+    margin-bottom: 38px;
+    max-width: 700px;
+}
+.shopymes-hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+.shopymes-stat-card {
+    background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
+    border-radius: 22px;
+    box-shadow: 0 8px 32px 0 #be8c6b44, 0 0 0 4px #ff910033;
+    padding: 32px 38px 24px 38px;
+    min-width: 220px;
+    text-align: center;
+    margin-bottom: 18px;
+    flex: 1 1 220px;
+    transition: box-shadow 0.2s, transform 0.18s;
+}
+.shopymes-stat-card:hover {
+    box-shadow: 0 16px 48px 0 #ffb86c99, 0 0 0 4px #be8c6b44;
+    transform: translateY(-6px) scale(1.04);
+}
+.shopymes-stat-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ff9100;
+    margin-bottom: 8px;
+}
+.shopymes-stat-label {
+    font-size: 1.1rem;
+    color: #be8c6b;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.shopymes-stat-sub {
+    font-size: 0.98rem;
+    color: #3a3533;
+    opacity: 0.7;
+}
+@media (max-width: 900px) {
+    .shopymes-hero-stats { flex-direction: column; gap: 18px; }
+    .shopymes-hero-title { font-size: 2.1rem; }
+    .shopymes-hero-content { padding: 0 12px; }
+}
+</style>
+<style>
+    /* VARIABLES Y ESTILOS GLOBALES (ADAPTADOS A LA IMAGEN DE SHOPYMES) */
+    :root {
+    --shopy-bg-light: #fffbe6; /* Fondo claro principal */
+    --shopy-bg-gradient: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%); /* Fondo degradado unificado */
+    --shopy-bg-dark: #fffbe6; /* Elimina el fondo oscuro para esta página */
+        --shopy-bg-card: #34495e; /* Un tono un poco más claro para las tarjetas */
+        --shopy-text-light: #ecf0f1; /* Texto claro para el fondo oscuro */
+        --shopy-text-muted: #bdc3c7; /* Texto atenuado para el fondo oscuro */
+        --shopy-accent-orange: #ff6b6b; /* Tu color de acento naranja */
+        --shopy-accent-blue: #4299E1; /* Tu color de acento azul */
+        --shopy-accent-green: #48BB78;
+        --shopy-accent-brown: #A19B86; /* Un tono cálido para ciertos elementos si lo necesitas */
+        --shopy-border: rgba(255, 255, 255, 0.1);
+        --shopy-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Sombra más intensa */
+        --font-heading: 'Montserrat', sans-serif;
+        --font-body: 'Roboto', Arial, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-body);
+    background: var(--shopy-bg-gradient); /* Fondo degradado unificado */
+        min-height: 100vh;
+        color: var(--shopy-text-light); /* Texto claro por defecto */
+        overflow-x: hidden;
+        position: relative;
+        line-height: 1.6;
+    }
+    
+    body::before, body::after {
+        content: none; /* Resetear los pseudo-elementos del body */
+    }
+
+    .container-content {
+        max-width: 1200px;
+        margin: 100px auto 60px auto;
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    h1, h2 {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        text-align: center;
+        margin-bottom: 50px;
+        color: var(--shopy-text-light); /* Título en color claro */
+        text-shadow: none;
+        position: relative;
+    }
+    h2 i {
+        margin-right: 15px;
+        color: var(--shopy-accent-blue); /* Ícono de título con color de acento */
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+    h2:hover i {
+        transform: scale(1.1);
+        color: var(--shopy-accent-orange); /* Cambia a naranja al pasar el ratón */
+    }
+    
+    .text-center { text-align: center; }
+    .mt-3 { margin-top: 1rem; }
+    .py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+
+    /* BARRA DE BÚSQUEDA Y FILTROS */
+    .filter-bar {
+    background: transparent; /* El fondo lo pone el body */
+        padding: 28px 24px 24px 24px;
+        border-radius: 22px;
+        margin-bottom: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        justify-content: center;
+        align-items: center;
+    box-shadow: 0 8px 32px 0 #be8c6b44, 0 0 0 4px #ff910033;
+    border: 1.5px solid #be8c6b22;
+        position: relative;
+        overflow: visible;
+    }
+    .filter-bar::before {
+        content: '';
+        position: absolute;
+        left: -60px; top: -60px;
+        width: 180px; height: 180px;
+        background: radial-gradient(circle, #4299E1cc 0%, #fff0 80%);
+        z-index: 0;
+        filter: blur(12px);
+        opacity: 0.5;
+        pointer-events: none;
+        animation: floatGlow 4s infinite alternate;
+    }
+    @keyframes floatGlow {
+        0% { left: -60px; top: -60px; }
+        100% { left: 20px; top: -30px; }
+    }
+    .filter-button {
+        background: linear-gradient(90deg, #232a36 60%, #34495e 100%);
+        color: #ecf0f1;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.08rem;
+        box-shadow: 0 2px 12px 0 #4299E133;
+        transition: background 0.25s, box-shadow 0.25s, transform 0.18s;
+    position: relative;
+    z-index: 2;
+        outline: none;
+        border: 1.5px solid #ffffff18;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .filter-button:hover, .filter-button:focus {
+        background: linear-gradient(90deg, #4299E1 60%, #34495e 100%);
+        color: #fff;
+        box-shadow: 0 4px 24px 0 #4299E199;
+        transform: translateY(-2px) scale(1.04);
+        border-color: #4299E1;
+    }
+    .filter-button.active {
+        background: linear-gradient(90deg, #ff6b6b 60%, #ffb86c 100%);
+        color: #fff;
+        box-shadow: 0 2px 18px 0 #ff6b6b55;
+        border-color: #ff6b6b;
+        transform: scale(1.06);
+    }
+
+    .search-input-group {
+    display: flex;
+    flex-grow: 1;
+    max-width: 400px;
+    background: var(--shopy-bg-gradient);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px 0 #be8c6b33;
+    border: 1.5px solid #be8c6b22;
+    }
+    .search-input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    background: transparent;
+    color: #be8c6b;
+    font-size: 1rem;
+    outline: none;
+    }
+    .search-input::placeholder {
+    color: #be8c6b99;
+    }
+        .search-button {
+            background: linear-gradient(90deg, #ff9100 60%, #ffb86c 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 18px 18px 0;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 16px 0 #ff910055;
+    }
+    .search-button:hover {
+        background-color: #3682c9; /* Tono de azul más oscuro */
+        transform: translateY(-1px);
+    }
+
+    /* ESTILOS ESPECÍFICOS DE LAS CATEGORÍAS */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .category-card {
+        background-color: var(--shopy-bg-card); /* Fondo de tarjeta más claro que el body */
+        border-radius: 12px;
+        box-shadow: var(--shopy-shadow);
+        color: var(--shopy-text-light);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        text-align: center;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        border: 1px solid rgba(255,255,255,0.1); /* Borde sutil */
+    }
+    .category-card:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6); /* Sombra más grande y oscura */
+    }
+    .category-card a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        padding: 0; /* Eliminar padding por defecto del enlace */
+    }
+
+    /* Efecto de brillo al pasar el cursor */
+    .category-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 50%, transparent); /* Brillo más sutil */
+        transition: left 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 1;
+        pointer-events: none;
+    }
+    .category-card:hover::before {
+        left: 100%;
+    }
+
+    .category-icon-wrapper { /* Nuevo contenedor para el ícono */
+        background-color: var(--shopy-accent-blue); /* Fondo azul para el círculo del ícono */
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 30px auto 20px auto; /* Centrado y espacio */
+        font-size: 3.5rem; /* Tamaño grande del ícono */
+        color: var(--shopy-text-light); /* Color del ícono */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
+    .category-card:hover .category-icon-wrapper {
+        transform: translateY(-5px) rotate(5deg); /* Pequeña rotación y elevación */
+        background-color: var(--shopy-accent-orange); /* Cambia de color al pasar el ratón */
+    }
+
+    .category-content {
+        padding: 25px;
+        flex-grow: 1;
+        position: relative;
+        z-index: 3;
+    }
+
+    .category-title {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--shopy-text-light);
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    .empty-categories {
+        text-align: center;
+        margin-top: 50px;
+        padding: 40px;
+        background-color: var(--shopy-bg-card); /* Fondo de tarjeta para el mensaje vacío */
+        border-radius: 12px;
+        box-shadow: var(--shopy-shadow);
+        color: var(--shopy-text-light);
+    }
+    .empty-categories h3 {
+        color: var(--shopy-text-light);
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    .empty-categories p {
+        font-size: 1.1rem;
+        color: var(--shopy-text-muted);
+        margin-bottom: 30px;
+    }
+
+    /* Animaciones Keyframes */
+    @keyframes icon-pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    /* Animación para el corazón favorito */
+.btn-favorito.active i {
+    animation: heart-pop 0.4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes heart-pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.3); }
+    60% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+.confirm-fav {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: #ff6b6b;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 4px 16px #ff6b6b55;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.confirm-fav.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Responsive Design */
+    @media (max-width: 768px) {
+        .filter-bar {
+            flex-direction: column;
+        }
+        .search-input-group {
+            width: 100%;
+            max-width: none;
+        }
+        .category-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+    }
+
+    /* ESTILOS PARA LAS TARJETAS DE TIENDA */
+    .tienda-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .tienda-card {
+        background-color: #2c3e50; /* Fondo oscuro para las tarjetas de tienda */
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        color: #ecf0f1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    .tienda-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+    .tienda-card-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .tienda-card-icon {
+        font-size: 2.5rem;
+        color: var(--shopy-accent-orange);
+        flex-shrink: 0;
+    }
+    .tienda-nombre {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        color: #ffb86c;
+    }
+    .tienda-categoria {
+        font-size: 0.9rem;
+        color: #bdc3c7;
+        margin-top: 4px;
+    }
+    .tienda-card-body {
+        padding: 15px 20px;
+    }
+    .tienda-descripcion {
+        font-size: 1rem;
+        color: #ecf0f1;
+        margin: 0 0 10px 0;
+    }
+    .tienda-contactos {
+        font-size: 0.9rem;
+        color: #ff6b6b;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .tienda-card-actions {
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-tienda {
+        background: var(--shopy-accent-blue);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .btn-tienda:hover {
+        background: #3682c9;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="container-content py-4">
+    <h2 class="mb-4"><i class="fas fa-tags"></i> Explora Nuestras Categorías</h2>
+
+    <div class="filter-bar">
+        <a href="{{ url_for('admin_categorias') }}" class="filter-button active"><i class="fas fa-tags" style="margin-right:6px;"></i> Todas</a>
+        {% for categoria in categorias %}
+            <a href="{{ url_for('ver_productos_categoria', categoria_id=categoria.id) }}" class="filter-button">
+                <i class="fas fa-tags" style="margin-right:6px;"></i> {{ categoria.nombre }}
+            </a>
+        {% endfor %}
+    <div class="search-input-group">
+        <i class="fas fa-tags" style="margin-right:8px;color:#4299E1;font-size:1.3rem;"></i>
+        <input type="text" class="search-input" placeholder="Buscar categoría...">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    </div>
+
+    {% if tiendas_global %}
+    <div class="tienda-grid">
+        {% for tienda in tiendas_global %}
+        <div class="tienda-card">
+            <div class="tienda-card-header">
+                <div class="tienda-card-icon"><i class="fas fa-store"></i></div>
+                <h3 class="tienda-nombre">{{ tienda.nombre_tienda }}</h3>
+                <span class="tienda-categoria">{{ tienda.categoria_nombre or 'Sin categoría' }}</span>
+            </div>
+            <div class="tienda-card-body">
+                <p class="tienda-descripcion">{{ tienda.descripcion }}</p>
+                <p class="tienda-contactos"><i class="fas fa-phone-alt"></i> {{ tienda.contactos }}</p>
+            </div>
+            <div class="tienda-card-actions">
+                <a href="{{ url_for('ver_productos_tienda', tienda_id=tienda.id) }}" class="btn-tienda">Ver productos</a>
+                <button class="btn-favorito {% if tienda.favorito %}active{% endif %}" onclick="toggleFavorito('{{ tienda.id }}', 'tienda', this)"><i class="fas fa-heart"></i> Favorito</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="empty-categories py-5">
+            <h3 class="mt-3">¡No hay tiendas disponibles!</h3>
+            <p>Parece que aún no se han creado tiendas. ¡Vuelve pronto!</p>
+        </div>
+    {% endif %}
+</div>
+
+{% include 'admin/pie.html' %}
+<div id="fav-confirm" class="confirm-fav"></div>
+<script>
+function toggleFavorito(tiendaId, tipo, el) {
+    tiendaId = Number(tiendaId);
+    fetch(`/toggle_favorito/${tiendaId}/${tipo}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            el.classList.toggle('active');
+            // Animación corazón
+            el.querySelector('i').classList.remove('heart-pop');
+            void el.querySelector('i').offsetWidth;
+            el.querySelector('i').classList.add('heart-pop');
+            // Mensaje confirmación
+            showFavConfirm(data.message || (el.classList.contains('active') ? 'Añadido a favoritos' : 'Eliminado de favoritos'));
+        }
+    });
+}
+function showFavConfirm(msg) {
+    var box = document.getElementById('fav-confirm');
+    box.textContent = msg;
+    box.classList.add('show');
+    setTimeout(function(){ box.classList.remove('show'); }, 1600);
+}
+</script>

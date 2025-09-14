@@ -1,0 +1,185 @@
+{% include'admin/cabecera_usuario.html' %}
+{% block content %}
+<style>
+    .favoritos-container {
+        max-width: 1100px;
+        margin: 80px auto 40px auto;
+        padding: 24px;
+        background: linear-gradient(120deg, #ecdfcd 80%, #bab78c 100%);
+        border-radius: 22px;
+        box-shadow: 0 8px 32px #a4927a, 0 1.5px 8px #8e6c49;
+    }
+    .favoritos-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.5rem;
+        color: #604a33;
+        text-align: center;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+    }
+    .favoritos-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
+    }
+    .favorito-card {
+        background: #c2a88f;
+        border-radius: 18px;
+        box-shadow: 0 4px 18px #916b5e;
+        padding: 22px 18px 18px 18px;
+        position: relative;
+        transition: box-shadow 0.3s, transform 0.3s;
+        animation: fadeInCard 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .favorito-card:hover {
+        box-shadow: 0 8px 32px #8e6c49;
+        transform: scale(1.03);
+    }
+    .favorito-img {
+        width: 100%;
+        max-width: 220px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 14px;
+        margin-bottom: 14px;
+        box-shadow: 0 2px 8px #bab78c;
+        background: #ecdfcd;
+    }
+    .favorito-nombre {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #604a33;
+        margin-bottom: 8px;
+    }
+    .favorito-descripcion {
+        font-size: 1rem;
+        color: #686961;
+        margin-bottom: 10px;
+    }
+    .favorito-tipo {
+        font-size: 0.95rem;
+        color: #be8c6b;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    .favorito-corazon {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        font-size: 2rem;
+        color: #bab78c;
+        cursor: pointer;
+        transition: color 0.3s, transform 0.2s;
+    }
+    .favorito-corazon.favorito {
+        color: #be8c6b;
+        transform: scale(1.2);
+    }
+    .favorito-corazon:hover {
+        color: #be8c6b;
+        transform: scale(1.2);
+    }
+    @keyframes fadeInCard {
+        0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .flash-messages {
+        margin-bottom: 18px;
+    }
+    .alert {
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        background: #be8c6b;
+        color: #fff;
+        box-shadow: 0 2px 8px #a4927a;
+        margin-bottom: 10px;
+        animation: flashFadeIn 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes flashFadeIn {
+        0% { opacity: 0; transform: translateY(-20px) scale(0.98); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+</style>
+<div class="favoritos-container">
+    <h2 class="favoritos-title"><i class="fas fa-heart"></i> Mis Favoritos</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              <i class="fas fa-heart"></i> {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <div class="favoritos-list">
+        {% for fav in favoritos %}
+        <div class="favorito-card">
+            <span class="favorito-corazon{% if fav.favorito %} favorito{% endif %}" onclick="toggleFavorito('{{ fav.id }}', '{{ fav.tipo }}')">
+                <i class="fas fa-heart"></i>
+            </span>
+            <img src="{{ fav.imagen }}" class="favorito-img" alt="{{ fav.nombre }}">
+            <div class="favorito-nombre">{{ fav.nombre }}</div>
+            <div class="favorito-descripcion">{{ fav.descripcion }}</div>
+            <div class="favorito-tipo">{{ fav.tipo|capitalize }}</div>
+        </div>
+        {% else %}
+        <div style="grid-column: 1/-1; text-align: center; color: #686961; font-size: 1.2rem; padding: 40px 0;">
+            <i class="fas fa-heart-broken" style="font-size:2.5rem; color:#be8c6b;"></i><br>
+            ¡No tienes favoritos aún!<br>
+            Agrega productos o tiendas usando el corazón en la página principal.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+function toggleFavorito(id, tipo) {
+    fetch(`/toggle_favorito/${id}/${tipo}`, {method: 'POST'})
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                // Elimina la tarjeta del favorito de la vista sin recargar
+                const card = document.querySelector(`.favorito-card[data-id="${id}"][data-tipo="${tipo}"]`);
+                if(card) {
+                    card.style.animation = 'fadeOutCard 0.5s forwards';
+                    setTimeout(() => card.remove(), 500);
+                }
+                // Si la lista queda vacía, muestra el mensaje de "No hay favoritos"
+                const favoritosList = document.querySelector('.favoritos-list');
+                if (favoritosList.children.length === 1) { // 1 porque el elemento se elimina después de 500ms
+                    setTimeout(() => {
+                        favoritosList.innerHTML = `
+                            <div style="grid-column: 1/-1; text-align: center; color: #686961; font-size: 1.2rem; padding: 40px 0;">
+                                <i class="fas fa-heart-broken" style="font-size:2.5rem; color:#be8c6b;"></i><br>
+                                ¡No tienes favoritos aún!<br>
+                                Agrega productos o tiendas usando el corazón en la página principal.
+                            </div>
+                        `;
+                    }, 500);
+                }
+                mostrarFlash(data.message);
+            } else {
+                alert(data.message || 'Error al actualizar favorito');
+            }
+        });
+}
+
+function mostrarFlash(msg) {
+    let div = document.createElement('div');
+    div.className = 'alert alert-success';
+    div.innerHTML = '<i class="fas fa-heart"></i> ' + msg;
+    div.style = 'padding:10px 18px;border-radius:10px;font-weight:600;background:#be8c6b;color:#fff;box-shadow:0 2px 8px #a4927a;margin-bottom:10px;animation:flashFadeIn 0.7s cubic-bezier(.4,0,.2,1);position:fixed;top:30px;right:30px;z-index:9999;';
+    document.body.appendChild(div);
+    setTimeout(()=>{div.style.opacity=0; setTimeout(()=>div.remove(),600);}, 2200);
+}
+</script>
+<style>
+    @keyframes fadeOutCard {
+        from { opacity: 1; transform: scale(1); }
+        to { opacity: 0; transform: scale(0.9); }
+    }
+</style>
+{% endblock %}
+{% include 'admin/pie.html' %}

@@ -1,0 +1,282 @@
+{%include 'sitio/cabecera.html' %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+   
+    :root {
+        --color-primario: #916b5e;
+        --color-acento: #be8c6b;
+        --color-fondo: #bab78c;
+        --color-fondo-oscuro: #686961;
+        --color-bloque: #fff;
+        --color-bloque2: #be8c6b;
+        --color-bloque3: #c2a88f;
+        --color-bloque4: #604a33;
+        --color-bloque5: #8e6c49;
+        --color-bloque6: #879281;
+        --color-texto: #232323;
+        --color-neon: #ffb86c;
+        --color-neon2: #be8c6b;
+        --color-neon3: #bab78c;
+        --color-btn: #be8c6b;
+        --color-btn-hover: #916b5e;
+    }
+    
+    body {
+        background: linear-gradient(135deg, var(--color-fondo) 60%, var(--color-bloque3) 100%);
+    }
+    .section-tech {
+        background: linear-gradient(135deg, var(--color-bloque3) 60%, var(--color-fondo) 100%);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 32px 0 var(--color-bloque6);
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+    .card-tech {
+        background: var(--color-bloque);
+        color: var(--color-texto);
+        border: 3px solid var(--color-neon2);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 24px 2px var(--color-neon3), 0 2px 24px 0 var(--color-bloque4);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        text-shadow: 0 0 2px #fff, 0 0 8px var(--color-neon3);
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card-tech:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 0 32px 8px var(--color-neon), 0 2px 32px 0 var(--color-bloque5);
+        border-color: var(--color-neon);
+    }
+    .card-tech .card-title {
+        color: var(--color-primario);
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 2px #fff, 0 0 8px var(--color-neon3);
+    }
+    .card-tech .card-text {
+        color: var(--color-texto);
+        font-size: 1.05rem;
+        text-shadow: 0 0 2px #fff, 0 0 8px var(--color-neon3);
+    }
+    .card-tech .icon-neon {
+        filter: drop-shadow(0 0 8px var(--color-neon));
+        color: var(--color-neon);
+        background: linear-gradient(135deg, var(--color-neon) 60%, var(--color-neon2) 100%);
+        border-radius: 50%;
+        padding: 18px;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        margin-top: 0.5rem;
+        box-shadow: 0 0 16px 2px var(--color-neon2);
+    }
+    .card-tech .icon-cart {
+        color: var(--color-btn-hover);
+        background: linear-gradient(135deg, var(--color-btn-hover) 60%, var(--color-btn) 100%);
+        border-radius: 50%;
+        padding: 18px;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        margin-top: 0.5rem;
+        box-shadow: 0 0 16px 2px var(--color-btn);
+    }
+    .btn-neon {
+        background: var(--color-btn);
+        color: #fff;
+        border: none;
+        box-shadow: 0 0 8px 2px var(--color-neon);
+        font-weight: bold;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        border-radius: 0.7rem;
+        padding: 0.7rem 2.2rem;
+        font-size: 1.2rem;
+    }
+    .btn-neon:hover {
+        background: var(--color-btn-hover);
+        color: #fff;
+        box-shadow: 0 0 16px 4px var(--color-neon2);
+    }
+    .text-neon {
+        color: var(--color-neon);
+        text-shadow: 0 0 8px var(--color-neon2);
+    }
+    .fw-bold {
+        text-shadow: 0 2px 8px #fff2, 0 0 2px var(--color-bloque4);
+    }
+    .main-title {
+        color: var(--color-primario);
+        font-size: 2.7rem;
+        font-weight: bold;
+        text-shadow: 0 2px 8px #fff2, 0 0 2px var(--color-bloque4);
+    }
+      .hero-section {
+        min-height: 80vh;
+        display: flex;
+        align-items: flex-start; /* Cambiado para pegar arriba */
+        justify-content: center;
+        padding-top: 2.5rem;     /* Opcional: ajusta el margen superior */
+    }
+    #como-funciona {
+        margin-top: -60px; /* Ajusta este valor para acercar la sección */
+    }
+    .icon-card-top {
+    z-index: 2;
+ }
+ .card-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-neon2);
+    opacity: 0.15;
+    z-index: 1;
+ }
+  .card-tech-cafe {
+        background: linear-gradient(135deg, #c2a88f 60%, #a4927a 100%) !important;
+        color: #fff;
+    }
+
+ .card-tech .card-title {
+    color: var(--color-neon);
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 2px #fff, 0 0 8px var(--color-neon3);
+ }
+ .card-tech .card-text {
+    color: #fff;
+    font-size: 1.05rem;
+    text-shadow: 0 0 2px #fff, 0 0 8px var(--color-neon3);
+ }
+ .icon-cart {
+    color: var(--color-btn-hover);
+    background: linear-gradient(135deg, var(--color-btn-hover) 60%, var(--color-btn) 100%);
+    border-radius: 50%;
+    padding: 18px;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    margin-top: -2.5rem;
+    box-shadow: 0 0 16px 2px var(--color-btn);
+    border: 4px solid #fff;
+}
+</style>
+<main class="container py-2">
+    <section class="hero-section">
+        <div class="row align-items-center w-100">
+            <div class="col-md-7">
+                <h1 class="main-title mb-3">
+                    ¡Digitaliza tu Negocio PYME con <span class="text-neon">ShopYmes</span>! <span style="font-size:2rem;">🚀</span>
+                </h1>
+                <p class="lead mt-4" data-aos="fade-up" data-aos-duration="3000" style="color: var(--color-bloque4); font-weight: 500;">
+                    ¿Eres dueño de una PYME y sientes que te estás quedando atrás en el mundo digital? No estás solo.<br>
+                    Muchos emprendedores enfrentan la falta de conocimientos tecnológicos y los altos costos para establecer una presencia en línea.<br>
+                    En ShopYmes, entendemos estos desafíos y hemos creado una solución diseñada específicamente para ti: <b style="color: var(--color-btn-hover);">una plataforma web que te conecta con tus clientes en minutos, sin complicaciones.</b>
+                </p>
+                <ul class="list-unstyled mt-4" style="color: var(--color-bloque5); font-size:1.1rem;">
+                    <li class="mb-2"><i class="fas fa-hand-pointer me-2 text-neon icon-easy" style="animation: pulseNeon 1.5s infinite alternate;"></i>Fácil de usar e intuitivo</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-neon"></i>Diseñado para PYMES</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-neon"></i>Soporte técnico continuo</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-neon"></i>Primer mes gratis</li>
+                </ul>
+                <div class="mt-4">
+                    <a href="{{ url_for('registro_general') }}" class="btn btn-neon btn-lg me-2">Comenzar Gratis</a>
+                    <a href="#como-funciona" class="btn btn-outline-light btn-lg" style="border-color: var(--color-neon); color: var(--color-neon);">Ver cómo funciona</a>
+                </div>
+            </div>
+            <div class="col-md-5 d-flex justify-content-center align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width:180px; height:180px; background:rgba(255,255,255,0.12); border:3px solid var(--color-neon); box-shadow: 0 0 32px 4px var(--color-neon2);">
+                    <i class="fas fa-store fa-5x icon-neon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="como-funciona" class="mb-5" data-aos="fade-up" data-aos-duration="3000">
+    <h2 class="fw-bold text-center mb-4" style="color: var(--color-primario);">¿Cómo funciona ShopYmes? <span style="font-size:1.5rem;">💻</span></h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4" data-aos="fade-right" data-aos-duration="4000">
+            <div class="card-tech card-tech-cafe card h-100 text-center position-relative pt-5">
+                <div class="icon-card-top position-absolute top-0 start-50 translate-middle-x">
+                    <div class="icon-cart"><i class="fas fa-user-plus"></i></div>
+                </div>
+                <div class="card-number position-absolute top-0 start-0 m-3">01</div>
+                <div class="card-body d-flex flex-column align-items-center justify-content-center mt-4" data-aos="fade-right" data-aos-duration="4000">
+                    <h5 class="card-title">Regístrate y crea tu tienda</h5>
+                    <p class="card-text">Empieza tu transformación digital registrándote en minutos. Elige una plantilla y personalízala con el logo y los colores de tu marca. Interfaz de arrastrar y soltar, sin código.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-right" data-aos-duration="4000">
+            <div class="card-tech card-tech-cafe card h-100 text-center position-relative pt-5">
+                <div class="icon-card-top position-absolute top-0 start-50 translate-middle-x">
+                    <div class="icon-cart"><i class="fas fa-box-open"></i></div>
+                </div>
+                <div class="card-number position-absolute top-0 start-0 m-3">02</div>
+                <div class="card-body d-flex flex-column align-items-center justify-content-center mt-4">
+                    <h5 class="card-title">Sube y gestiona tus productos</h5>
+                    <p class="card-text">Carga fotos y descripciones detalladas. Organiza tu catálogo, establece precios y controla tu inventario fácilmente.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-right" data-aos-duration="4000">
+            <div class="card-tech card-tech-cafe card h-100 text-center position-relative pt-5">
+                <div class="icon-card-top position-absolute top-0 start-50 translate-middle-x">
+                    <div class="icon-cart"><i class="fas fa-shopping-cart"></i></div>
+                </div>
+                <div class="card-number position-absolute top-0 start-0 m-3">03</div>
+                <div class="card-body d-flex flex-column align-items-center justify-content-center mt-4">
+                    <h5 class="card-title">¡Empieza a vender y a conectar!</h5>
+                    <p class="card-text">Tu tienda lista para recibir clientes. Métodos de pago populares, comunicación directa y herramientas para optimizar tus ventas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <section id="como-funciona" class="mb-5" data-aos="fade-up" data-aos-duration="3000">
+    <h2 class="fw-bold text-center mb-4" style="color: var(--color-primario); margin-top: 5rem;">¿Porque elegir ShopYmes? <span style="font-size:1.5rem;">💻</span></h2>
+    <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card-tech card-tech-cafe card h-100 text-center">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <div class="icon-cart"><i class="fas fa-magic"></i></div>
+                        <h5 class="card-title">Fácil de usar</h5>
+                        <p class="card-text">Interfaz intuitiva, sin necesidad de conocimientos técnicos previos. Plataforma que te guía paso a paso.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-tech card-tech-cafe card h-100 text-center">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <div class="icon-cart"><i class="fas fa-wallet"></i></div>
+                        <h5 class="card-title">Amigable con tu bolsillo</h5>
+                        <p class="card-text">Suscripción mensual fija de ₡4.500 y primer mes gratis. Sin costos ocultos, acceso a todas las herramientas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-tech card-tech-cafe card h-100 text-center">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <div class="icon-cart"><i class="fas fa-headset"></i></div>
+                        <h5 class="card-title">Soporte continuo</h5>
+                        <p class="card-text">Acompañamiento técnico en cada paso, desde la configuración hasta la optimización de ventas. Atención profesional y ética.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center py-5 section-tech">
+        <h2 class="fw-bold mb-3" style="color: var(--color-primario);">¿Listo para digitalizar tu PYME?</h2>
+        <p class="lead mb-4" style="color: var(--color-bloque4);">Únete a la revolución digital y lleva tu negocio al siguiente nivel con ShopYmes. Impulsa la economía local y haz crecer tu emprendimiento.</p>
+        <a href="{{ url_for('registro_general') }}" class="btn btn-neon btn-lg me-2">Comenzar Gratis</a>
+        <a href="#" class="btn btn-outline-light btn-lg" style="border-color: var(--color-neon); color: var(--color-neon);">Solicitar Demo</a>
+    </section>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+  AOS.init();
+</script>
+</main>
+{%include 'sitio/pie.html' %}

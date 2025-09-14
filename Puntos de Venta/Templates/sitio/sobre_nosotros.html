@@ -1,0 +1,194 @@
+{% include 'sitio/cabecera.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sobre Nosotros - ShopYmes</title>
+  <meta name="description" content="Conoce la historia, misión y equipo de ShopYmes, la plataforma digital para PYMES en Costa Rica. Somos tu aliado tecnológico para el éxito.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/imagenes/logo.png">
+  <style>
+    :root {
+      --color-primario: #916b5e;
+      --color-acento: #be8c6b;
+      --color-fondo: #bab78c;
+      --color-bloque: #fff;
+      --color-borde: #be8c6b;
+      --color-neon: #ffb86c;
+      --color-btn: #be8c6b;
+      --color-btn-hover: #916b5e;
+      --color-texto: #232323;
+      --color-glow: #ffe7b2;
+      --color-glow2: #fffbe6;
+    }
+    body {
+      background: linear-gradient(135deg, var(--color-fondo) 60%, var(--color-bloque) 100%);
+      font-family: 'Exo 2', sans-serif;
+    }
+    .about-container {
+      max-width: 1100px;
+      margin: 40px auto 30px auto;
+      background: linear-gradient(120deg, var(--color-bloque) 80%, var(--color-glow2) 100%);
+      border-radius: 24px;
+      box-shadow: 0 0 32px 6px var(--color-neon), 0 2px 32px 0 var(--color-acento), 0 0 80px 0 var(--color-glow2);
+      padding: 44px 32px 36px 32px;
+      color: var(--color-texto);
+      border: 2.5px solid var(--color-neon);
+      position: relative;
+    }
+    .about-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .about-header h1 {
+      font-family: 'Orbitron', monospace;
+      color: var(--color-primario);
+      font-size: 2.5rem;
+      text-shadow: 0 0 18px var(--color-neon), 0 0 8px var(--color-glow);
+      margin-bottom: 10px;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .about-header p {
+      color: var(--color-btn-hover);
+      font-size: 1.2rem;
+      text-shadow: 0 0 8px var(--color-glow);
+    }
+    .about-section {
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 16px;
+      box-shadow: 0 0 18px 2px var(--color-neon), 0 0 8px 0 var(--color-glow2);
+      padding: 28px 24px 18px 24px;
+      position: relative;
+    }
+    .about-section h2 {
+      color: var(--color-acento);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      font-family: 'Orbitron', monospace;
+      text-shadow: 0 0 12px var(--color-neon), 0 0 4px var(--color-glow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .about-section p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    .about-img {
+  display: block;
+  margin: 30px auto 20px auto;
+  max-width: 220px;
+  border-radius: 16px;
+  box-shadow: 0 0 32px 6px var(--color-neon), 0 0 24px 0 var(--color-glow2);
+  border: 2.5px solid var(--color-neon);
+  background: #fffbe6;
+    }
+    .about-team {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .team-card {
+      background: linear-gradient(120deg, #fffbe6 80%, #ffe7b2 100%);
+      border: 2px solid var(--color-neon);
+      border-radius: 16px;
+      box-shadow: 0 0 18px 2px var(--color-neon), 0 0 8px 0 var(--color-glow2);
+      padding: 22px 22px 16px 22px;
+      min-width: 220px;
+      max-width: 320px;
+      text-align: center;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .team-card i {
+      font-size: 2.1rem;
+      color: var(--color-acento);
+      text-shadow: 0 0 10px var(--color-neon);
+      margin-bottom: 8px;
+    }
+    .team-card h3 {
+      color: var(--color-primario);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .team-card p {
+      font-size: 0.98rem;
+      color: var(--color-btn-hover);
+    }
+    @media (max-width: 900px) {
+      .about-container {
+        padding: 20px 8px 18px 8px;
+      }
+    }
+    @media (max-width: 600px) {
+      .about-header h1 {
+        font-size: 1.5rem;
+      }
+      .about-section h2 {
+        font-size: 1.1rem;
+      }
+      .about-img {
+        max-width: 120px;
+      }
+    }
+    /* Neon border animation */
+    .about-section:before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 16px;
+      pointer-events: none;
+      box-shadow: 0 0 24px 4px var(--color-neon), 0 0 40px 0 var(--color-glow2);
+      opacity: 0.18;
+    }
+  </style>
+</head>
+<body>
+  <div class="about-container">
+    <div class="about-header">
+      <h1><i class="fas fa-bolt"></i>Quiénes Somos: Tu Aliado Digital para el Éxito en Costa Rica<i class="fas fa-microchip"></i></h1>
+      <p><i class="fas fa-map-marker-alt"></i> ShopYmes nació en Quepos, Puntarenas, para transformar el futuro de las PYMES costarricenses.</p>
+    </div>
+  <img src="/imagenes/logo.png" alt="Logo ShopYmes" class="about-img">
+    <div class="about-section">
+      <h2><i class="fas fa-rocket"></i> Nuestra Misión</h2>
+      <p>En ShopYmes, somos más que una plataforma; somos un motor de cambio, un puente que conecta la pasión y el arduo trabajo de las pequeñas y medianas empresas (PYMES) de Costa Rica con el vasto universo digital. Nacimos en el corazón de Quepos, Puntarenas, no por casualidad, sino como una respuesta directa y comprometida ante un desafío claro: la falta de herramientas tecnológicas accesibles y asequibles que impedía a nuestros emprendedores locales competir en un mercado cada vez más globalizado.<br><br>Nuestra misión es clara y poderosa: democratizar el comercio electrónico para cada PYME costarricense. Creemos firmemente que el tamaño de un negocio no debe ser un obstáculo para su crecimiento. Los emprendimientos pequeños son el pilar de nuestra economía local, la fuente de innovación y sustento para innumerables familias. Merecen una oportunidad real para prosperar sin tener que enfrentar los altos costos, la complejidad técnica y la falta de apoyo que a menudo caracterizan a las soluciones digitales tradicionales. Por eso, hemos creado una plataforma diseñada desde cero para ser no solo intuitiva y funcional, sino también justa, transparente y, sobre todo, un verdadero compañero de viaje en tu camino al éxito.</p>
+    </div>
+    <div class="about-section">
+      <h2><i class="fas fa-handshake"></i> Nuestro Compromiso: Una Alianza de Crecimiento Mutuo</h2>
+      <p>Nuestro modelo de negocio se basa en la confianza y el apoyo incondicional.<br><br><b><i class="fas fa-user-tie"></i> Con los Emprendedores:</b> Desde el primer clic, nuestro enfoque ha sido en la persona detrás del negocio. No solo te proporcionamos un espacio digital; te ofrecemos una plataforma donde puedes crear y gestionar tu propia tienda en línea con total autonomía, empoderándote para tomar el control de tu crecimiento. Pero nunca te sentirás solo. Nuestro equipo de soporte humano está siempre listo para guiarte, resolver tus dudas y ofrecerte un acompañamiento personalizado. Para nosotros, no eres solo un cliente; eres un socio, y tu éxito es nuestro éxito.<br><br><b><i class="fas fa-users"></i> Con la Comunidad:</b> En ShopYmes, entendemos que el impacto va más allá de lo individual. Al impulsar la digitalización de las PYMES, estamos contribuyendo directamente al fortalecimiento del tejido económico de nuestras comunidades. Fomentamos la generación de empleo, impulsamos la innovación local y trabajamos activamente para cerrar la brecha tecnológica, promoviendo una inclusión digital real que beneficia a todos.<br><br><b><i class="fas fa-leaf"></i> Con la Sostenibilidad:</b> Como una empresa 100% digital, nuestra huella de carbono es mínima, pero nuestro compromiso con un futuro más verde es enorme. Promovemos el comercio en línea como una alternativa que reduce los desplazamientos innecesarios y optimiza los procesos logísticos, contribuyendo de manera indirecta a un entorno más saludable. Nuestra operación se rige por principios éticos y morales, asegurando un trato justo y respetuoso con cada emprendedor y cada usuario.</p>
+    </div>
+    <div class="about-section">
+      <h2><i class="fas fa-users-cog"></i> Nuestro Equipo: La Pasión que Impulsa ShopYmes</h2>
+      <p>ShopYmes es el resultado de la colaboración y la pasión de un equipo diverso y talentoso. Somos un grupo de estudiantes y profesionales con el apoyo invaluable de socios clave, como el Colegio Técnico Profesional de Quepos, que nos ha brindado un sólido respaldo técnico y académico. También contamos con la guía experta de emprendedores locales, como María Gabriela Hernández Rodney de Namaste Cocoil, quien ha compartido sus valiosos conocimientos sobre el ecosistema PYME. Esta sinergia única nos permite combinar la innovación tecnológica con una comprensión profunda de las necesidades del mercado, asegurando que nuestra plataforma no solo funcione a la perfección, sino que realmente aporte un valor significativo a tu negocio.<br><br>Estamos aquí para ser tu aliado estratégico. Únete a la familia ShopYmes y déjanos ayudarte a transformar tu emprendimiento en un negocio digital próspero y sostenible.</p>
+      <div class="about-team">
+        <div class="team-card">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Equipo Fundador</h3>
+          <p>Estudiantes y profesionales apasionados por la tecnología y el desarrollo local.</p>
+        </div>
+        <div class="team-card">
+          <i class="fas fa-school"></i>
+          <h3>Aliados Técnicos</h3>
+          <p>Colegio Técnico Profesional de Quepos<br>Soporte académico y técnico.</p>
+        </div>
+        <div class="team-card">
+          <i class="fas fa-seedling"></i>
+          <h3>Mentoría PYME</h3>
+          <p>María Gabriela Hernández Rodney<br>Namaste Cocoil</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% include 'sitio/pie.html' %}

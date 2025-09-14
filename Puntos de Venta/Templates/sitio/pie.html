@@ -1,0 +1,176 @@
+</div> <!-- Cierra el div.container del archivo de cabecera -->
+    
+    <!--
+    ======================================================
+    Estilos para el Sticky Footer
+    ====================================================== 
+    -->
+    <style>
+        :root {
+            --color-chocolate: #604a33;
+            --color-oxido: #8e6c49;
+            --color-mostaza: #be8c6b;
+            --color-serrin: #a4927a;
+            --color-moca: #c2a88f;
+            --color-latte: #ecdfcd;
+            --color-principal: #916b5e;
+            --color-secundario: #bab78c;
+            --color-acento: #be8c6b;
+            --color-gris: #686961;
+            --color-verde: #879281;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--color-latte) 60%, var(--color-secundario) 100%);
+            color: var(--color-chocolate);
+        }
+        main, .container, .card {
+            background: transparent;
+        }
+        .card {
+            border: 1.5px solid var(--color-moca);
+            border-radius: 18px;
+            box-shadow: 0 2px 12px 0 rgba(145,107,94,0.07);
+        }
+        .card-header {
+            background: var(--color-acento) !important;
+            color: #fff !important;
+        }
+        .btn-success, .btn-primary, .btn-danger {
+            background: var(--color-acento) !important;
+            border: none !important;
+            color: #fff !important;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        .btn-success:hover, .btn-primary:hover, .btn-danger:hover {
+            background: var(--color-chocolate) !important;
+            color: #fff !important;
+        }
+        .form-control:focus {
+            border-color: var(--color-acento);
+            box-shadow: 0 0 0 0.2rem rgba(190,140,107,0.15);
+        }
+        footer {
+            background: var(--color-chocolate) !important;
+            color: #fff !important;
+        }
+        footer a, footer .text-white {
+            color: var(--color-latte) !important;
+        }
+        footer a:hover {
+            color: var(--color-mostaza) !important;
+        }
+        hr.border-secondary {
+            border-color: var(--color-moca) !important;
+        }
+    </style>
+    <!-- 
+    ======================================================
+    Pie de página
+    ====================================================== 
+    -->
+    <footer class="footer-custom pt-5 pb-3 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold footer-title">Shopyymes</h5>
+                    <p class="mb-1 footer-desc">Plataforma de ventas inteligente en vivo. ShopYmes © 2024</p>
+                    <div class="mb-2">
+                        <a href="#" class="footer-icon me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-icon me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-icon me-3"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold footer-title">Plataforma</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="footer-link">Inicio</a></li>
+                        <li><a href="#" class="footer-link">Productos</a></li>
+                        <li><a href="#" class="footer-link">Ofertas</a></li>
+                        <li><a href="#" class="footer-link">Certificaciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold footer-title">Categorías</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Tecnología</a></li>
+                        <li><a href="#" class="footer-link">Moda</a></li>
+                        <li><a href="#" class="footer-link">Hogar</a></li>
+                        <li><a href="#" class="footer-link">Emprendimiento</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold footer-title">Soporte</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/soporte" class="footer-link">Centro de Ayuda</a></li>
+                        <li><a href="/contactanos" class="footer-link">Contacto</a></li>
+                        <li class="footer-contact">WhatsApp: +504 9999-9999</li>
+                        <li class="footer-contact">Email: hola@shopyymes.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-hr">
+            <div class="text-center small mt-3 footer-copy">
+                © 2024 Shopyymes. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+    <style>
+        .footer-custom {
+            background: linear-gradient(135deg, var(--color-chocolate) 60%, var(--color-oxido) 100%);
+            color: var(--color-latte);
+            border-top: 3px solid var(--color-mostaza);
+            box-shadow: 0 -2px 12px 0 rgba(145,107,94,0.09);
+        }
+        .footer-title {
+            color: var(--color-mostaza);
+            letter-spacing: 1px;
+        }
+        .footer-desc {
+            color: var(--color-moca);
+        }
+        .footer-link {
+            color: var(--color-latte);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            border-radius: 6px;
+            padding: 0.2rem 0.7rem;
+            display: inline-block;
+        }
+        .footer-link:hover {
+            color: var(--color-mostaza);
+            background: var(--color-serrin);
+        }
+        .footer-icon {
+            color: var(--color-mostaza);
+            font-size: 1.3rem;
+            transition: color 0.2s;
+        }
+        .footer-icon:hover {
+            color: var(--color-latte);
+        }
+        .footer-contact {
+            color: var(--color-moca);
+            font-size: 0.97rem;
+        }
+        .footer-hr {
+            border-color: var(--color-serrin);
+        }
+        .footer-copy {
+            color: var(--color-latte);
+        }
+    </style>
+    <!--
+    ======================================================
+    Scripts de JavaScript de Bootstrap
+    ====================================================== 
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" xintegrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" xintegrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+</body>
+</html>

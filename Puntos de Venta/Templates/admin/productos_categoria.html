@@ -1,0 +1,14 @@
+{% include 'admin/cabecera_usuario.html' %}
+<div class="container py-4">
+    <h2>Productos de la categoría: {{ categoria.nombre }}</h2>
+    {% if productos %}
+        <ul>
+        {% for producto in productos %}
+            <li>{{ producto.nombre }} - {{ producto.descripcion }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay productos en esta categoría.</p>
+    {% endif %}
+</div>
+{% include 'admin/pie.html' %}

@@ -1,0 +1,65 @@
+{% include 'admin/cabecera_usuario.html' %}
+<div class="container-content py-4">
+    <h2 class="mb-4"><i class="fas fa-tags"></i> Tiendas en la categoría: {{ categoria.nombre }}</h2>
+    <a href="{{ url_for('admin_categorias') }}" class="btn btn-secondary mb-3">&larr; Volver a categorías</a>
+    {% if tiendas %}
+    <div class="tienda-grid">
+        {% for tienda in tiendas %}
+        <div class="tienda-card">
+            <div class="tienda-card-header">
+                <div class="tienda-card-icon"><i class="fas fa-store"></i></div>
+                <h3 class="tienda-nombre">{{ tienda.nombre_tienda }}</h3>
+                <span class="tienda-categoria">{{ tienda.categoria_nombre or 'Sin categoría' }}</span>
+            </div>
+            <div class="tienda-card-body">
+                <p class="tienda-descripcion">{{ tienda.descripcion }}</p>
+                <p class="tienda-contactos"><i class="fas fa-phone-alt"></i> {{ tienda.contactos }}</p>
+            </div>
+            <div class="tienda-card-actions">
+                <a href="{{ url_for('ver_productos_tienda', tienda_id=tienda.id) }}" class="btn-tienda">Ver productos</a>
+                <button class="btn-favorito {% if tienda.favorito %}active{% endif %}" onclick="toggleFavorito('{{ tienda.id }}', 'tienda', this)"><i class="fas fa-heart"></i> Favorito</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="empty-categories py-5">
+            <h3 class="mt-3">¡No hay tiendas en esta categoría!</h3>
+            <p>Intenta con otra categoría o vuelve más tarde.</p>
+        </div>
+    {% endif %}
+</div>
+{% include 'admin/pie.html' %}
+<div id="fav-confirm" class="confirm-fav"></div>
+<script>
+function toggleFavorito(tiendaId, tipo, el) {
+    tiendaId = Number(tiendaId);
+    fetch(`/toggle_favorito/${tiendaId}/${tipo}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            el.classList.toggle('active');
+            el.querySelector('i').classList.remove('heart-pop');
+            void el.querySelector('i').offsetWidth;
+            el.querySelector('i').classList.add('heart-pop');
+            showFavConfirm(data.message || (el.classList.contains('active') ? 'Añadido a favoritos' : 'Eliminado de favoritos'));
+        }
+    });
+}
+function showFavConfirm(msg) {
+    var box = document.getElementById('fav-confirm');
+    box.textContent = msg;
+    box.classList.add('show');
+    setTimeout(function(){ box.classList.remove('show'); }, 1600);
+}
+</script>
+<style>
+/* Puedes reutilizar los estilos de categorias.html para tienda-grid, tienda-card, etc. */
+</style>

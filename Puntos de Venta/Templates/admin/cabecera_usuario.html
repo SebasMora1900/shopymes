@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopYmes - Usuario</title>
+  <link rel="icon" type="image/png" href="/imagenes/logo_pequeno.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    .header-bg {
+      background: linear-gradient(90deg, #B1AD7C 60%, #9F9B60 100%);
+      box-shadow: 0 2px 16px 0 #09112e55;
+      padding-bottom: 0.2rem;
+      border-radius: 0 0 18px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-bg::before {
+      content: '';
+      position: absolute;
+      left: -80px; top: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, #fffbe6cc 0%, #fff0 80%);
+      z-index: 0;
+      filter: blur(12px);
+      animation: floatGlow 4s infinite alternate;
+    }
+    @keyframes floatGlow {
+      0% { left: -80px; top: -60px; }
+      100% { left: 20px; top: -30px; }
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  gap: 0.7rem;
+      padding: 0.7rem 2.2rem 0.2rem 2.2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.2rem 0.2rem;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .logo img {
+      height: 64px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: none;
+      background: none;
+      padding: 0;
+      display: block;
+      margin: 0 auto;
+    }
+    .search {
+      flex: 1;
+      max-width: 520px;
+      margin: 0 1.2rem;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search input {
+      border-radius: 2rem;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      width: 100%;
+      outline: none;
+      font-size: 1.13rem;
+      background: #fff;
+      color: #232323;
+      box-shadow: 0 2px 16px #23180933, 0 0 0 2px #fff5;
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    .search input:focus {
+      background: #fffbe6;
+      box-shadow: 0 2px 24px #ADA961, 0 0 0 2px #1e00ff;
+    }
+    .search button {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: #828031;
+      font-size: 1.35rem;
+      padding: 0;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 3;
+    }
+    .search button:hover {
+      color: #ff5400;
+    }
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      z-index: 2;
+    }
+    .icons a {
+      color: #fff;
+      font-size: 1.4rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .icons a:hover {
+      color: #fffbe6;
+      transform: scale(1.18) rotate(-8deg);
+    }
+    .menu {
+      background: linear-gradient(90deg, #9F9B60 60%, #8f8a4a 100%);
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+  gap: 1.2rem;
+      padding: 0.7rem 2.2rem 0.7rem 2.2rem;
+      font-size: 1.13rem;
+      border-bottom: 2px solid #5b5940;
+      position: relative;
+      z-index: 2;
+    }
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      border-radius: 2rem;
+      padding: 0.4rem 1.2rem;
+    }
+    .menu a:hover, .menu a.active {
+      background: #fff;
+      color: #ff9100;
+      box-shadow: 0 2px 12px #fff5;
+      transform: scale(1.08);
+    }
+    .menu .menu-extra {
+      display: flex;
+      gap: 2.2rem;
+      margin-left: 0;
+    }
+    .menu .menu-extra a {
+      background: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 2rem;
+      padding: 0.4rem 1.2rem;
+      font-size: 1.13rem;
+      box-shadow: none;
+      border: none;
+      transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: popIn 0.7s cubic-bezier(.4,2,.6,1) both;
+    }
+    .menu .menu-extra a.active, .menu .menu-extra a:hover {
+      background: #fff;
+      color: #00ffc8;
+      box-shadow: 0 2px 12px #fff5;
+      transform: scale(1.08);
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(.92) translateY(20px); }
+      100% { opacity: 1; transform: none; }
+    }
+    @media (max-width: 900px) {
+  .header-top, .menu { padding: 0 0.7rem; gap: 0.4rem; }
+      .search { max-width: 200px; }
+      .menu .menu-extra { margin-left: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bg">
+    <div class="header-top">
+      <div class="logo">
+        <img src="/imagenes/logo.png" alt="ShopYmes">
+      </div>
+      <form class="search" action="/admin/buscar" method="get" autocomplete="off">
+        <input type="text" name="q" placeholder="Buscar productos o tiendas...">
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+      <div class="icons">
+        <a href="/admin/favoritos" title="Favoritos"><i class="fas fa-heart"></i></a>
+  <a href="/admin/soporte" title="Soporte"><i class="fas fa-circle-question"></i></a>
+        <a href="/admin/carrito" title="Carrito"><i class="fas fa-shopping-cart"></i></a>
+      </div>
+    </div>
+    <div class="menu">
+  <a href="/" class="active" id="volver-sitio"><i class="fas fa-home"></i> Ir al sitio principal</a>
+      <a href="/admin/" id="tiendas-link"><i class="fas fa-store"></i> Tiendas</a>
+      <a href="/admin/categorias"><i class="fas fa-th"></i> Categorías</a>
+      <a href="/admin/carrito"><i class="fas fa-shopping-cart"></i> Carrito</a>
+      <div class="menu-extra">
+       
+  {% if session.get('rol') == 'emprendedor' %}
+  <a href="{{ url_for('administrar_tiendas') }}" class="fw-bold"><i class="fas fa-store"></i> Administrar tiendas</a>
+  {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

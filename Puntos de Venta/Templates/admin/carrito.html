@@ -1,0 +1,603 @@
+{% include 'admin/cabecera_usuario.html' %}
+<style>
+    /* Animación para mensajes flash */
+    @keyframes flashFadeIn {
+        0% { opacity: 0; transform: translateY(-20px) scale(0.98); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .flash-messages .alert {
+        animation: flashFadeIn 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    /* VARIABLES Y ESTILOS GLOBALES (ADAPTADOS A LA IMAGEN DE SHOPYMES) */
+    :root {
+        /* Colores base inspirados en la imagen */
+    --shopy-bg-light: #ecdfcd;
+    --shopy-bg-dark-element: #c2a88f;
+    --shopy-bg-darker-element: #a4927a;
+    --shopy-text-light: #f8f6f3;
+    --shopy-text-dark: #604a33;
+    --shopy-text-muted: #686961;
+
+    /* Acentos de color (botones y detalles) */
+    --shopy-accent-green: #bab78c;
+    --shopy-accent-brown: #916b5e;
+    --shopy-accent-orange: #be8c6b;
+    --shopy-accent-gold: #8e6c49;
+    --shopy-accent-gray: #879281;
+
+    /* Bordes y sombras */
+    --shopy-border-light: #c2a88f;
+    --shopy-shadow-light: 0 5px 15px rgba(134, 108, 73, 0.10);
+    --shopy-shadow-medium: 0 10px 30px rgba(134, 108, 73, 0.18);
+
+    /* Tipografía */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto', Arial, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-body);
+        background-color: var(--shopy-bg-light); /* Fondo claro principal */
+        min-height: 100vh;
+        color: var(--shopy-text-dark); /* Texto oscuro por defecto en fondo claro */
+        overflow-x: hidden;
+        position: relative;
+        line-height: 1.6;
+    }
+
+    /* Quitamos los orbes flotantes del fondo para este diseño, ya que no estaban en la imagen de referencia */
+    body::before, body::after {
+        content: none; 
+    }
+
+    .container-content {
+        max-width: 1000;
+        margin: 100px auto 60px auto; /* Mantener espacio para cabecera y pie */
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    h1, h2 {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        text-align: center;
+        margin-bottom: 50px;
+        color: var(--shopy-text-dark); /* Títulos oscuros en fondo claro */
+        text-shadow: var(--shopy-shadow-light); /* Sombra sutil */
+    }
+    h2 i {
+        margin-right: 15px;
+        color: var(--shopy-accent-blue-start); /* Icono con color de acento */
+    }
+    
+    .text-center { text-align: center; }
+    .mt-3 { margin-top: 1rem; }
+    .py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+    .mb-4 { margin-bottom: 1.5rem; }
+    .mb-3 { margin-bottom: 1rem; }
+    .text-muted { color: var(--shopy-text-muted); }
+
+    /* Badge para tienda, ahora con colores de ShopYmes */
+    .product-badge { 
+        background: linear-gradient(90deg, var(--shopy-accent-blue-start), var(--shopy-accent-blue-end));
+        color: var(--shopy-text-light);
+        padding: 6px 14px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: var(--shopy-shadow-light);
+    }
+
+    /* ESTILOS ESPECÍFICOS DEL CARRITO */
+    .cart-grid {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr;
+        gap: 50px;
+    }
+
+    .cart-items, .cart-summary {
+    background: linear-gradient(120deg, var(--shopy-bg-dark-element) 80%, var(--shopy-bg-light) 100%);
+    border: 1.5px solid var(--shopy-border-light);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: var(--shopy-shadow-medium);
+    color: var(--shopy-text-dark);
+    }
+
+    .cart-summary {
+        position: sticky;
+        top: 120px;
+        height: fit-content;
+    }
+    .cart-summary h3 {
+        font-family: var(--font-heading);
+        color: var(--shopy-accent-blue-start);
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+    }
+
+    .item-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 18px 0 18px 0;
+    border-bottom: 2px solid var(--shopy-accent-gray);
+    box-shadow: 0 8px 32px var(--shopy-accent-brown), 0 1.5px 8px var(--shopy-accent-gold);
+    border-radius: 18px;
+    background: linear-gradient(120deg, var(--shopy-bg-darker-element) 60%, var(--shopy-bg-light) 100%);
+    transition: box-shadow 0.4s, background 0.4s, transform 0.3s;
+    animation: fadeInCard 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .item-card:hover {
+    background: linear-gradient(120deg, var(--shopy-accent-gray) 0%, var(--shopy-bg-darker-element) 100%);
+    box-shadow: 0 16px 48px var(--shopy-accent-brown), 0 3px 16px var(--shopy-accent-gold);
+    transform: scale(1.02);
+    }
+
+    .item-card:last-child {
+        border-bottom: none;
+    }
+
+    .item-image {
+        width: 160px;
+        height: 160px;
+        max-width: 100%;
+        max-height: 180px;
+        object-fit: cover;
+        border-radius: 22px;
+        border: 3px solid var(--shopy-accent-gold);
+        box-shadow: 0 4px 18px var(--shopy-accent-brown);
+        background: var(--shopy-bg-light);
+        margin-right: 24px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .item-image:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 0 25px rgba(66, 153, 225, 0.5);
+    }
+
+    .item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    }
+
+    .item-title {
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        color: var(--shopy-text-light);
+        margin: 0 0 8px 0;
+        letter-spacing: 0.5px;
+    }
+    
+    .item-description {
+        font-size: 0.95rem;
+        color: var(--shopy-text-muted);
+        margin-bottom: 10px;
+    }
+
+    /* Estilos para el control de cantidad */
+    .quantity-control {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--shopy-accent-green) 60%, var(--shopy-bg-light) 100%);
+    border-radius: 12px;
+    box-shadow: 0 1px 4px var(--shopy-accent-brown);
+    padding: 4px 10px;
+    border: 1px solid var(--shopy-accent-gray);
+    transition: box-shadow 0.3s, background 0.3s;
+    }
+    .quantity-control label {
+        margin-right: 10px;
+        font-size: 1rem;
+        color: var(--shopy-text-light);
+    }
+    .quantity-control input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    border: 1.5px solid var(--shopy-accent-gray);
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--shopy-bg-light) 60%, var(--shopy-accent-green) 100%);
+    color: var(--shopy-text-dark);
+    text-align: center;
+    box-shadow: 0 1px 6px var(--shopy-accent-brown);
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .quantity-control input[type="number"]::-webkit-outer-spin-button,
+    .quantity-control input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .quantity-control input[type="number"]:focus {
+    outline: none;
+    border-color: var(--shopy-accent-brown);
+    box-shadow: 0 0 0 4px var(--shopy-accent-gold);
+    background: linear-gradient(90deg, var(--shopy-accent-green) 60%, var(--shopy-bg-light) 100%);
+    }
+    .quantity-button {
+    background: linear-gradient(120deg, var(--shopy-accent-gold) 60%, var(--shopy-accent-brown) 100%);
+    border: 1.5px solid var(--shopy-accent-gray);
+    color: var(--shopy-text-light);
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    box-shadow: 0 1px 6px var(--shopy-accent-brown);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .quantity-button:hover {
+    background: linear-gradient(120deg, var(--shopy-accent-brown) 60%, var(--shopy-accent-gold) 100%);
+    box-shadow: 0 2px 12px var(--shopy-accent-gold);
+    transform: scale(1.12);
+    }
+
+    .btn-update {
+    background: linear-gradient(90deg, var(--shopy-accent-brown), var(--shopy-accent-gold));
+    box-shadow: 0 8px 24px var(--shopy-accent-gold);
+    padding: 0.7rem 1.3rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    margin-left: 10px;
+    border: none;
+    filter: brightness(1.08);
+    color: var(--shopy-text-light);
+    transition: box-shadow 0.3s, filter 0.3s;
+    }
+    .btn-update:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 16px 32px var(--shopy-accent-brown);
+    filter: brightness(1.18);
+@keyframes fadeInCard {
+    0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+    }
+
+    .subtotal-item {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--shopy-text-light);
+        margin-top: 10px;
+    }
+    .subtotal-item strong {
+        color: var(--shopy-accent-orange-start); /* Subtotal por ítem en naranja/rojo */
+        font-size: 1.2rem;
+    }
+
+    /* Botón Quitar del ítem */
+    .item-remove-form {
+        margin-left: auto;
+    }
+    .btn-remove-item {
+        background: none;
+        border: none;
+        color: var(--shopy-text-muted);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.2s;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+    .btn-remove-item:hover {
+        color: var(--shopy-accent-orange-start);
+        transform: scale(1.1);
+        background-color: rgba(255, 107, 107, 0.1);
+    }
+    .btn-remove-item i {
+        margin-right: 5px;
+    }
+
+    .summary-details {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px 0;
+    }
+    
+    .summary-details li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        font-size: 1.15rem;
+    }
+    .summary-details li span:last-child {
+        font-weight: 600;
+        color: var(--shopy-accent-blue-start); /* Color de los valores del resumen */
+    }
+    
+    .summary-details .total-row {
+        font-family: var(--font-heading);
+        font-size: 1.8rem;
+        font-weight: 700;
+        border-top: 2px solid rgba(255, 255, 255, 0.15);
+        padding-top: 20px;
+        margin-top: 25px;
+        color: var(--shopy-text-light);
+    }
+    .summary-details .total-row span:last-child {
+        color: var(--shopy-accent-orange-start); /* Color distintivo para el total final */
+        font-size: 2rem;
+    }
+
+    /* Botones CTA */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem 2.2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+        border: none;
+        cursor: pointer;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        letter-spacing: 0.5px;
+    }
+    
+    .btn:hover {
+        transform: translateY(-5px) scale(1.02);
+    }
+    .btn i {
+        margin-right: 10px;
+    }
+
+    .btn-success { 
+        background: linear-gradient(90deg, var(--shopy-accent-green-start), var(--shopy-accent-green-end));
+        box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+    }
+    .btn-success:hover {
+        box-shadow: 0 12px 35px rgba(72, 187, 120, 0.6);
+        filter: brightness(1.15);
+    }
+    
+    /* El botón Quitar individual tiene su propio estilo, este es para otros botones danger */
+    .btn-danger { 
+        background: linear-gradient(90deg, var(--shopy-accent-orange-start), var(--shopy-accent-orange-end)); 
+        box-shadow: 0 8px 25px rgba(229, 62, 62, 0.4);
+    }
+    .btn-danger:hover {
+        box-shadow: 0 12px 35px rgba(229, 62, 62, 0.6);
+        filter: brightness(1.15);
+    }
+    
+    .btn-primary { /* Este se usará para "Ir a tiendas" en el carrito vacío */
+        background: linear-gradient(90deg, var(--shopy-accent-blue-start), var(--shopy-accent-blue-end)); 
+        box-shadow: 0 8px 25px rgba(66, 153, 225, 0.4);
+    }
+    .btn-primary:hover {
+        box-shadow: 0 12px 35px rgba(66, 153, 225, 0.6);
+        filter: brightness(1.15);
+    }
+
+    .empty-cart {
+        text-align: center;
+        margin-top: 80px;
+        padding: 40px;
+        background: var(--shopy-bg-dark-element);
+        border-radius: 20px;
+        box-shadow: var(--shopy-shadow-medium);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: var(--shopy-text-light); /* Texto claro en el contenedor oscuro */
+    }
+    .empty-cart img {
+        filter: drop-shadow(0 5px 15px rgba(66, 153, 225, 0.4));
+        margin-bottom: 25px;
+    }
+    .empty-cart h3 {
+        color: var(--shopy-accent-blue-start);
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    .empty-cart p {
+        font-size: 1.1rem;
+        color: var(--shopy-text-muted); /* Gris claro para el texto de muted */
+        margin-bottom: 30px;
+    }
+    
+    .empty-cart a {
+        font-size: 1.1rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .cart-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .cart-summary {
+            position: static;
+            margin-top: 30px;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        h2 i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+        .item-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 20px 0;
+            gap: 15px;
+        }
+        .item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+        }
+        .item-details {
+            text-align: center;
+            width: 100%;
+        }
+        .item-title {
+            font-size: 1.3rem;
+        }
+        .item-description {
+            font-size: 0.85rem;
+        }
+        .subtotal-item {
+            font-size: 1rem;
+        }
+        .quantity-control {
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-remove-item {
+            margin: 0 auto;
+            display: block;
+            margin-top: 15px;
+        }
+        .cart-summary h3 {
+            font-size: 1.5rem;
+        }
+        .summary-details li {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .summary-details .total-row {
+            font-size: 1.5rem;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .summary-details .total-row span:last-child {
+            font-size: 1.6rem;
+        }
+        .btn {
+            padding: 0.8rem 1.8rem;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        .empty-cart h3 {
+            font-size: 1.6rem;
+        }
+        .empty-cart p {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="container-content py-4">
+        <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    document.querySelectorAll('.flash-messages .alert').forEach(function(el) {
+                        el.style.transition = 'opacity 0.7s';
+                        el.style.opacity = '0';
+                        setTimeout(function() { el.style.display = 'none'; }, 700);
+                    });
+                }, 3500);
+            });
+        </script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                                {% for category, message in messages %}
+                                    {% set bg_color = '#c2a88f' %}
+                                    {% if category == 'warning' %}
+                                        {% set bg_color = '#be8c6b' %}
+                                    {% elif category == 'success' %}
+                                        {% set bg_color = '#bab78c' %}
+                                    {% endif %}
+                                    <div class="alert alert-{{ category }}" style="margin-bottom: 18px; padding: 12px 18px; border-radius: 10px; font-weight: 600; background: {{ bg_color }}; color: #604a33; box-shadow: 0 2px 8px #a4927a;">
+                                                        {% if category == 'warning' %}
+                                                            <span style="margin-right:8px; color:#fff; background:#be8c6b; border-radius:50%; padding:4px 8px; font-size:1.2em; vertical-align:middle;">
+                                                                <i class="fas fa-exclamation-triangle"></i>
+                                                            </span>
+                                                        {% elif category == 'success' %}
+                                                            <span style="margin-right:8px; color:#fff; background:#bab78c; border-radius:50%; padding:4px 8px; font-size:1.2em; vertical-align:middle;">
+                                                                <i class="fas fa-check-circle"></i>
+                                                            </span>
+                                                        {% elif category == 'info' %}
+                                                            <span style="margin-right:8px; color:#fff; background:#c2a88f; border-radius:50%; padding:4px 8px; font-size:1.2em; vertical-align:middle;">
+                                                                <i class="fas fa-info-circle"></i>
+                                                            </span>
+                                                        {% endif %}
+                                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    <h2 class="mb-4"><i class="fas fa-shopping-cart"></i> Tu Carrito de Compras</h2>
+    
+    {% if carrito and carrito|length > 0 %}
+        <div class="cart-grid">
+            <div class="cart-items">
+                {% for item in carrito %}
+                    <div class="item-card">
+                        <img src="{{ item.producto.imagen1 }}" class="item-image" alt="{{ item.producto.nombre }}">
+                        <div class="item-details">
+                            <h5 class="item-title">{{ item.producto.nombre }}</h5>
+                            <p class="item-description">{{ item.producto.descripcion }}</p>
+                            <p class="text-muted"><strong>Tienda:</strong> <span class="product-badge">{{ item.tienda.nombre_tienda }}</span></p>
+                            
+                            <form method="POST" action="{{ url_for('actualizar_cantidad_carrito', producto_id=item.producto.id) }}" class="quantity-control">
+                                <label for="cantidad-{{ item.producto.id }}">Cantidad:</label>
+                                <button type="button" class="quantity-button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="fas fa-minus"></i></button>
+                                <input type="number" id="cantidad-{{ item.producto.id }}" name="cantidad" min="-99" value="{{ 0 if session.get('reset_input') == item.producto.id else item.cantidad }}" />
+                                <button type="button" class="quantity-button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="fas fa-plus"></i></button>
+                                <button type="submit" class="btn btn-update"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                            </form>
+                            <p class="text-muted" style="margin-top: 6px;">Cantidad total de este producto en el carrito: <strong>{{ item.cantidad }}</strong></p>
+                            </form>
+                            
+                            <p class="subtotal-item">Subtotal: <strong>₡{{ '%.2f'|format(item.subtotal) }}</strong></p>
+                            
+                        </div>
+                        <form method="POST" action="{{ url_for('eliminar_del_carrito', producto_id=item.producto.id) }}" class="item-remove-form">
+                            <button type="submit" class="btn-remove-item" title="Quitar producto"><i class="fas fa-trash-alt"></i> Quitar</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="cart-summary">
+                <h3>Resumen del Pedido</h3>
+                <ul class="summary-details">
+                    <li>Subtotal de productos: <span>₡{{ '%.2f'|format(subtotal) }}</span></li>
+                    <li>Costo de envío: <span>₡{{ '%.2f'|format(envio) }}</span></li>
+                    <li class="total-row">Total a pagar: <span>₡{{ '%.2f'|format(total) }}</span></li>
+                </ul>
+                <div class="text-center">
+                    <a href="{{ url_for('comprar') }}" class="btn btn-success"><i class="fas fa-credit-card"></i> Comprar ahora</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-cart py-5">
+            <img src="/imagenes/carrito.png" alt="Carrito vacío" style="max-width:180px;">
+            <h3 class="mt-3">¡Tu carrito está vacío!</h3>
+            <p>Parece que no has añadido nada todavía. Explora nuestras tiendas y encuentra algo genial.</p>
+            <a href="{{ url_for('admin_inicio') }}" class="btn btn-primary"><i class="fas fa-store"></i> Ir a tiendas</a>
+        </div>
+    {% endif %}
+</div>
+
+{% include 'admin/pie.html' %}

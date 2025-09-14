@@ -1,0 +1,441 @@
+{%include 'sitio/cabecera.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Soporte y Chat IA - ShopYmes | Plataforma para PYMES</title>
+    <meta name="description" content="Contacta con ShopYmes para soporte, ventas y consultas sobre tu tienda digital. Chat IA disponible 24/7 para ayudarte.">
+    <meta name="keywords" content="ShopYmes soporte, contacto, pymes, tienda digital, chat inteligente, ventas, ayuda, comercio electrónico">
+    <meta name="author" content="ShopYmes">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://orbix.com/contacto-chat">
+    <meta property="og:title" content="Soporte y Chat IA - ShopYmes">
+    <meta property="og:description" content="Contacta con ShopYmes para soporte y ventas. Chat IA disponible 24/7.">
+    <meta property="og:image" content="/imagenes/logo.png">
+    <meta property="og:site_name" content="ShopYmes">
+    <meta property="og:locale" content="es_ES">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://orbix.com/contacto-chat">
+    <meta property="twitter:title" content="Soporte y Chat IA - ShopYmes">
+    <meta property="twitter:description" content="Contacta con ShopYmes para soporte y ventas. Chat IA disponible 24/7.">
+    <meta property="twitter:image" content="/imagenes/logo.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/soporte">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <!-- Paleta ShopYmes y estilos propios -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/imagenes/logo pequeño.png">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contacto Orbix",
+      "description": "Página de contacto y chat IA de Orbix para consultas sobre desarrollo web, aplicaciones móviles e inteligencia artificial",
+      "url": "https://orbix.com/contacto-chat",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Orbix",
+        "description": "Empresa especializada en desarrollo web, aplicaciones móviles e inteligencia artificial",
+        "url": "https://orbix.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "availableLanguage": ["Spanish", "English"]
+        },
+        "sameAs": [
+          "https://twitter.com/orbix",
+          "https://linkedin.com/company/orbix",
+          "https://github.com/orbix"
+        ]
+      }
+    }
+    </script>
+        <style>
+            :root {
+                --color-primario: #916b5e;
+                --color-acento: #be8c6b;
+                --color-fondo: #bab78c;
+                --color-bloque: #fff;
+                --color-borde: #be8c6b;
+                --color-neon: #ffb86c;
+                --color-btn: #be8c6b;
+                --color-btn-hover: #916b5e;
+                --color-texto: #232323;
+            }
+            body {
+                background: linear-gradient(135deg, var(--color-fondo) 60%, var(--color-bloque) 100%);
+                font-family: 'Exo 2', sans-serif;
+            }
+            .main-container {
+                padding: 20px 0;
+            }
+            .header {
+                margin-bottom: 35px;
+                text-align: center;
+            }
+            .header h1 {
+                color: var(--color-primario);
+                font-size: 2.3rem;
+                font-weight: bold;
+                text-shadow: 0 2px 8px #fff2, 0 0 2px var(--color-acento);
+            }
+            .header p {
+                color: var(--color-btn-hover);
+                font-size: 1.1rem;
+            }
+            .contact-chat-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+                margin: 30px auto;
+                max-width: 1200px;
+                padding: 0 20px;
+            }
+            .contact-panel, .chat-panel {
+                background: var(--color-bloque);
+                border: 2.5px solid var(--color-neon);
+                border-radius: 18px;
+                padding: 32px 28px;
+                box-shadow: 0 0 24px 2px var(--color-neon), 0 2px 24px 0 var(--color-acento);
+                min-height: 480px;
+                color: var(--color-texto);
+                position: relative;
+            }
+            .contact-panel h2, .chat-panel h2 {
+                color: var(--color-primario);
+                font-family: 'Orbitron', monospace;
+                margin-bottom: 25px;
+                text-align: center;
+                text-shadow: 0 0 10px var(--color-neon);
+                font-size: 1.4rem;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: var(--color-btn-hover);
+                font-weight: 600;
+            }
+            .form-group input, .form-group textarea {
+                width: 100%;
+                padding: 14px;
+                background: #f8f6f2;
+                border: 1.5px solid var(--color-acento);
+                border-radius: 8px;
+                color: var(--color-texto);
+                font-family: 'Exo 2', sans-serif;
+                transition: border-color 0.3s;
+                box-sizing: border-box;
+            }
+            .form-group input:focus, .form-group textarea:focus {
+                outline: none;
+                border-color: var(--color-neon);
+                box-shadow: 0 0 10px var(--color-neon);
+            }
+            .btn-submit {
+                width: 100%;
+                padding: 14px;
+                margin-top: 10px;
+                background: linear-gradient(45deg, var(--color-btn), var(--color-neon));
+                border: none;
+                border-radius: 10px;
+                color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.2s, box-shadow 0.2s;
+                font-family: 'Orbitron', monospace;
+                font-size: 1.1rem;
+                box-shadow: 0 0 8px 2px var(--color-neon);
+            }
+            .btn-submit:hover {
+                background: var(--color-btn-hover);
+                color: #fff;
+                box-shadow: 0 0 16px 4px var(--color-neon);
+            }
+            .chat-container {
+                height: 400px;
+                display: flex;
+                flex-direction: column;
+            }
+            .chat-messages {
+                flex: 1;
+                overflow-y: auto;
+                margin-bottom: 25px;
+                padding: 15px;
+                border: 1.5px solid var(--color-acento);
+                border-radius: 8px;
+                background: #f8f6f2;
+                color: var(--color-texto);
+            }
+            .message {
+                margin-bottom: 15px;
+                padding: 12px 18px;
+                border-radius: 15px;
+                max-width: 75%;
+                word-break: break-word;
+                line-height: 1.4;
+                font-size: 1.05rem;
+            }
+            .message.user {
+                background: linear-gradient(45deg, var(--color-neon), var(--color-btn));
+                color: #fff;
+                margin-left: auto;
+                text-align: right;
+                box-shadow: 0 0 8px 2px var(--color-neon);
+            }
+            .message.bot {
+                background: #f8f6f2;
+                color: var(--color-btn-hover);
+                border: 1.5px solid var(--color-acento);
+            }
+            .chat-input-area {
+                display: flex;
+                gap: 8px;
+                margin-top: 15px;
+                align-items: center;
+                padding-top: 15px;
+                border-top: 1px solid var(--color-acento);
+            }
+            .chat-input {
+                flex: 1;
+                padding: 10px;
+                background: #f8f6f2;
+                border: 1.5px solid var(--color-acento);
+                border-radius: 6px;
+                color: var(--color-texto);
+                font-family: 'Exo 2', sans-serif;
+                font-size: 14px;
+            }
+            .chat-btn {
+                padding: 8px 12px;
+                background: linear-gradient(45deg, var(--color-btn), var(--color-neon));
+                border: none;
+                border-radius: 8px;
+                color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                font-family: 'Orbitron', monospace;
+                font-size: 1rem;
+                transition: background 0.2s, box-shadow 0.2s;
+                min-width: 60px;
+                box-shadow: 0 0 8px 2px var(--color-neon);
+            }
+            .chat-btn:hover {
+                background: var(--color-btn-hover);
+                color: #fff;
+                box-shadow: 0 0 16px 4px var(--color-neon);
+            }
+            .chat-btn.clear {
+                background: linear-gradient(45deg, #ff4757, #ff3838);
+                color: #fff;
+            }
+            .success-message {
+                color: var(--color-btn-hover);
+                font-weight: bold;
+                text-align: center;
+                margin-top: 15px;
+                padding: 10px;
+                border-radius: 6px;
+                background: #f8f6f2;
+                border: 1.5px solid var(--color-acento);
+            }
+            #contactStatus {
+                margin-top: 15px;
+            }
+            @media (max-width: 1200px) {
+                .contact-chat-container {
+                    max-width: 1000px;
+                    gap: 20px;
+                    padding: 0 15px;
+                }
+            }
+            @media (max-width: 768px) {
+                .contact-chat-container {
+                    grid-template-columns: 1fr;
+                    gap: 25px;
+                    margin: 20px auto;
+                    padding: 0 15px;
+                }
+                .contact-panel, .chat-panel {
+                    padding: 20px;
+                    min-height: auto;
+                }
+                .chat-container {
+                    height: 350px;
+                }
+                .contact-panel h2, .chat-panel h2 {
+                    font-size: 1.2rem;
+                    margin-bottom: 20px;
+                }
+            }
+            @media (max-width: 480px) {
+                .contact-chat-container {
+                    padding: 0 10px;
+                    margin: 15px auto;
+                }
+                .contact-panel, .chat-panel {
+                    padding: 15px;
+                }
+                .chat-container {
+                    height: 300px;
+                }
+                .chat-messages {
+                    margin-bottom: 20px;
+                }
+                .chat-input-area {
+                    margin-top: 12px;
+                    padding-top: 12px;
+                }
+                .chat-btn {
+                    padding: 6px 10px;
+                    font-size: 0.95rem;
+                    min-width: 50px;
+                }
+                .chat-input-area {
+                    gap: 6px;
+                }
+            }
+        </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <h1>🛠️ Soporte y Chat IA ShopYmes</h1>
+            <p>¿Tienes dudas o necesitas ayuda? Nuestro equipo y la IA de ShopYmes están para apoyarte.</p>
+        </header>
+
+        <main>
+            <div class="contact-chat-container">
+                <div class="contact-panel">
+                    <h2>❓ Preguntas Frecuentes</h2>
+                    <ul style="text-align:left; font-size:1.08rem; color:var(--color-texto); padding-left:0; list-style:none;">
+                        <li><b>¿Cómo registro mi tienda en ShopYmes?</b><br>Haz clic en <a href="{{ url_for('registro_general') }}">Registrarse</a> y sigue los pasos para crear tu cuenta y personalizar tu tienda.</li>
+                        <li class="mt-3"><b>¿Qué métodos de pago puedo integrar?</b><br>ShopYmes permite Sinpe Móvil y tarjetas de crédito/débito.</li>
+                        <li class="mt-3"><b>¿Puedo cambiar el diseño de mi tienda?</b><br>Sí, puedes personalizar colores, logo y estructura desde tu panel de usuario.</li>
+                        <li class="mt-3"><b>¿Cómo obtengo soporte técnico?</b><br>Desde esta página puedes usar el chat IA o escribirnos a soporte@shopymes.com.</li>
+                        <li class="mt-3"><b>¿El primer mes es gratis?</b><br>Sí, puedes probar ShopYmes sin costo el primer mes.</li>
+                    </ul>
+                    <h2 class="mt-4">🎥 Tutoriales Rápidos</h2>
+                    <ul style="text-align:left; font-size:1.08rem; color:var(--color-texto); padding-left:0; list-style:none;">
+                        <li><a href="#">Cómo crear tu tienda paso a paso</a></li>
+                        <li><a href="#">Subir productos y gestionar inventario</a></li>
+                        <li><a href="#">Personalizar tu tienda</a></li>
+                        <li><a href="#">Configurar métodos de pago</a></li>
+                    </ul>
+                </div>
+
+                <div class="chat-panel">
+                    <h2>🤖 Chat con IA de ShopYmes</h2>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message bot">
+                                ¡Hola! Soy la IA de ShopYmes. ¿En qué puedo ayudarte hoy?
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-area">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Escribe tu mensaje aquí..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendMessage()" class="chat-btn">Enviar</button>
+                            <button onclick="clearChat()" class="chat-btn clear">Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de navegación eliminada para mayor enfoque en soporte -->
+        </main>
+    </div>
+
+    <script src="nav-global.js"></script>
+    <script>
+    // Función para agregar mensajes al chat
+    function addMessage(message, isUser = false) {
+        const messagesContainer = document.getElementById('chatMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+        
+        // Simulación de escritura para la IA
+        if (!isUser) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message bot typing-indicator';
+            typingIndicator.innerHTML = '<span>.</span><span>.</span><span>.</span>';
+            messagesContainer.appendChild(typingIndicator);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                typingIndicator.remove();
+                messageDiv.textContent = message;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000); // Retraso de 1 segundo para simular la respuesta
+        } else {
+            messageDiv.textContent = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const userMessage = input.value.trim();
+        
+        if (!userMessage) return;
+
+        addMessage(userMessage, true);
+        input.value = '';
+
+        try {
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mensaje: userMessage })
+            });
+
+            const result = await response.json();
+            
+            if (response.ok) {
+                addMessage(result.respuesta);
+            } else {
+                addMessage('Lo siento, hubo un error al procesar tu mensaje. Por favor, intenta de nuevo más tarde.', false);
+            }
+        } catch (error) {
+            addMessage('Error de conexión. Asegúrate de que el servidor esté en funcionamiento.', false);
+        }
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    function clearChat() {
+        const messagesContainer = document.getElementById('chatMessages');
+        messagesContainer.innerHTML = '<div class="message bot">¡Hola! Soy la IA de ShopYmes. ¿En qué puedo ayudarte hoy?</div>';
+    }
+
+</script>
+</body>
+</html>
+{% include 'sitio/pie.html' %}
